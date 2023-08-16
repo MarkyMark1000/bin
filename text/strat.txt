@@ -1,0 +1,223 @@
+CODE REVIEWS
+
+============
+
+  People want you to be quick with this, I suggest:
+
+  - fetch AND pull the branch
+  - run migrations
+  - run flake8
+  - run code and make sure ui and /admin/ look good
+  - run unit tests.
+  - run coverage and make sure unit tests cover new code
+  - I have gitlens installed in vscode.   Find the first commit
+    and compare it to the HEAD using 'Search and Compare'.
+    Go through the files that have changes.
+
+CODE STANDARDS
+==============
+
+ Database Normalization
+ ----------------------
+   - 1st NF:	Each column is single valued, ie no multi valued columns
+		and no repeating groups such as author_1, author_2
+   - 2nd NF:	In 1st NF AND
+		Non key columns only depend upon the primary key, this is
+		very noticable when you have multiple primary key columns
+		such as customer_id and store_id
+   - 3rd NF:	In 2nd NF AND
+		No transititive dependencies, ie indirect dependencies on
+		primary key, eg book_id determines genre_id and genre_id
+		determines genre_type.
+
+ ENCAPSULATION
+ -------------
+   - use at least _ for non public functions.
+
+ SOLID
+ -----
+ See below for full description
+   - Single Responsibility Principle
+   - Open/Closed Principle
+   - Liskov Substitution Principle
+   - Interface Segragation Principle
+   - Dependency Inversion Principle
+
+ NAMING
+ ------
+ Can classes be split into Verbs (eg extract, transform, load, etc) and nouns
+ (dog, elephant, etc)
+
+ DRY
+ ---
+ DO NOT REPEAT YOURSELF
+ Do not take it too literally, you will find 'if' in lots of places.
+
+ YAGNI
+ -----
+ You Aint Gona Need It
+
+ STUPID
+ ------
+ Design principles to avoid
+  - Singleton, remove these from code
+  - Tight Coupling, modules rely heavily on other modules within the code
+  - Untestability, commonly cause by tight coupling, it should be easy
+  - Indescriptive Naming
+  - Duplication
+
+SOLID - DETAILS
+===============
+
+  Single Responsibility Principle
+  -------------------------------
+   - Strongly associated with encapsulation
+   - Every class/module/function should have one responsibility/purpose, eg:
+     Bad Example			Good Example
+
+     class Animal:			class Animal:
+	def __init__(self, name):	   def __init__(self, name):
+	   self.name = name		      self.name = name
+
+	def get_name(self):		   def get_name(self):
+	   pass				      pass
+
+	def save(self, animal):		class AnimalDB:
+	   pass				   def get_animal(self):
+					      pass
+
+					   def save(self, animal):
+					      pass
+
+  Open Closed Principle
+  ---------------------
+   - Open for extension, closed for modificiation.
+   - System defined with interface segregation principle and liskov
+     substitution principle should fit nicely into this.
+   - Modify reluctantly and extend eagerly
+   - If you see hard coded strings or lists, this could be a warning.
+
+  Liskov Substitution Principle
+  -----------------------------
+   - Strongly associated with polymorphism and inheritance.
+   - A class should be substitutable for its super-class and not
+     break the code.
+   - A sub class should have a use case for all of the inherited properties.
+   - eg frog can inherit from amphibian because they both walk and swim,
+     but dolphin cannot.
+     Bad Example				Good Example
+
+     def animal_leg_count(animals):		Class Animal:
+        for animal in animals:			   def leg_count(self):
+           if isinstance(animal, Lion):		      ....
+	      ...
+           if isintance(animal, Mouse): 	Class Lion(Animal):
+              ...				   def leg_count(self):
+           if isinstance(animal, Cat):		      ...
+              ...
+
+  Interface Segregation Principle
+  -------------------------------
+     - It is unnecessary to create an interface with lots of methods when
+       some of these methods may be irrelevant to the needs of the particular
+       user
+     - When designing a system split the problem into VERB's and create a
+       class for each VERB, eg we need to READ, ANALYSE and REPORT, then
+       create a Reader, Analysis and Report class.   Then minimize the
+       interfaces for each.
+       Bad Example				Good Example
+
+       class IShape:				class IShape:
+          def draw_square(self):		   def draw(self):
+             ...				      ...
+
+          def draw_rectangle(self):		class Square(IShape):
+             ...				   def draw(self):
+						      ...
+          def draw_circle(self):
+            ...					class Circle(IShape):
+						   def draw(self):
+						      ...
+
+  Dependency Inversion Principle
+  ------------------------------
+    - Strongly associated with abstraction and hence encapsulation.
+    - High level classes/modules should not depend upon low level
+      classes/modules, both should rely upon abstractions.
+    - An abstraction is a high level description of functionality,
+      a concretion is a real world instance of something.
+      Bad Example				Good Example
+
+      class Kitchen():				class Bakeable(ABC):
+         def __init__(self):			   @abstractmethod
+            # A CONCRETION			   def bake(self):
+            self.ingredient = Bread()		      pass
+
+         def cook(self):			class Bread(Bakeable):
+            self.ingredient.bake()		   def bake(self):
+						      pass
+
+						def cook(ingredient: Bakeable):
+						   ingredient.bake()
+
+USEFUL TIPS
+===========
+
+  Debugging Difficult SQL Queries in SQLAlchemy/Django
+  ----------------------------------------------------
+    - Get a copy of the sql from psql using pp str(query)
+    - I have an extension called SQL Formatter installed.   Copy the code into
+      a .sql file.   Do find and replace to get rid of single quotes and \n
+      and remove any leading/ending brackets.
+    - Right click and format the file.
+    - Try to work your way from deep subqueries out to the containing query.
+    - The test database can be dropped and rolled back.   Turn this off
+      within files like conftest if you want to debug the database and
+      potentially replace rollback() with commit().   Do searches for things
+      like 'DROP', 'rollback', 'db_name' to simplify this.
+    - Run the unit test then copy the sql into the test database and do what
+      is necessary to fix/understand the problem.
+    - You could copy the sql into a spreadsheet and color code that is common.
+    - Start with deep subqueries and work your way outwards.
+    - Consider use of things like scalar(), one(), all(), fetch_all(),
+      scalars(), fetch()
+
+  Reducing Coupling and Increasing Cohesion
+  -----------------------------------------
+  See video's by Arjan Codes, I like these and think they are easy to follow.
+
+  Coupling: Parts of the code, ie modules, classes, have strong
+            interdependence.
+  Cohesion: Opposite of this, the degree to which modules and classes have
+            code that belongs together.
+
+    - Ask where the information is stored and break it down and simplify it.
+    - Avoid deep inheritance relationships.   Try to use composition, ie
+      input classes as it is easier to extend and avoids an explosion in
+      inheritance.
+    - Dependency Injection, pass instance into class initialization, do not
+      create an instance inside the class.
+    - Dependency Inversion, ie abstraction, pass an abstract class or protocol
+      class in as an argument.
+    - Avoid inappropriate intimacy, ie things like data[0]
+    - Consider introducting intermediate datastructures to simplify things:
+      - convert a description into xml
+      - read xml and model car crash or whatever you are doing.
+    - Can I use dataclasses ?   These are great as you don't need __init__,
+      __repr__ or __eq__.   Can freeze them and use > if a sort_index is
+      set.
+
+  Bad Code Smell Examples
+  -----------------------
+
+    - 3 lists within a class that contain data rather than a list of classes.
+    - Incorrect function names such as create_... instead of add_...
+    - Too many instance variables and too many responsibilities.
+    - A class/function that takes ONLY an instance of another class and uses
+      it to calculate a value.
+    - Backpeddling, ie take input code then search for an object within a
+      list with that code and then use that object to calculate some values.
+    - Hard-wired class initializations with a fixed order, normally within
+      an __init__
+    - Creating objects (often unrelated) within the initializer.
+    - Not using keyword arguments within functions.

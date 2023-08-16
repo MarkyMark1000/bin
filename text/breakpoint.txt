@@ -1,0 +1,17 @@
+Useful commands for breakpoint():
+
+  h                                 [help]
+  ll                                [list code in current function]
+  l  or  l 38                       [list code near breakpoint or line number]
+  b lineno                          [add a breakpoint to lineno]
+  tbreak lineno                     [add a temporary breakpoint to lineno]
+  b 4, var > 4                      [cond breakpoint line 4 if var > 4]
+  cl                                [clear all breakpoints]
+  a                                 [list arguments for that function]
+  n                                 [next]
+  s                                 [step down]
+  d                                 [down stack]
+  u                                 [up stack]
+  w(here)                           [print stack trace]
+
+  --pdb                             [use with pytest to start debugger on failure]

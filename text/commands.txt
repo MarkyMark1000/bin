@@ -1,0 +1,26 @@
+List of useful but uncategorized commands
+-----------------------------------------
+
+# clean docker before restarting
+docker volume prune
+docker system prune -a
+
+# If sideswipe stops working in Mac Monterey:
+killall Dock
+
+# Find processes attached to a port and then kill the process.
+sudo lsof -i:8080
+kill $PID        or kill -9 $PID     // to forcefully kill
+
+# Uninstall pre-commit
+pre-commit uninstall
+
+# install pre-commit as a pre-commit, which I don't like because
+# it runs every time a make commit or edit it [most annoying]
+pre-commit install      [i think, lost alberts code]
+
+# install pre-commit as a pre-push
+pre-commit install -t pre-push
+
+# Env variable to enable printing of sql
+ENABLE_SQLALCHEMY_PROFILING_LOG=True (edited)

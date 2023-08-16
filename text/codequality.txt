@@ -1,0 +1,53 @@
+This area covers code quality:
+
+  Very Useful:
+
+    Black                    [automatically formats code]
+    Isort                    [automatically formats imports]
+
+  Linters:
+
+    Flake8                   [pyflakes, pycodestyle, mccabe]
+    PyLama                   [pycodestyle, pydocstyle, pyflakes, mccabe, pylint, radon, gjslint]
+
+  Single Apps:
+
+    pycodestyle --max-line-length=88      [88 makes consistent with black]
+    pydocstyle
+    mccabe
+
+    radon
+    radon cc .               [cyc complexity of . and below.   A good, B ok, ... F Bad]
+    radon cc . --min C       [min complexity of C]
+    radon raw .              [LOC (lines of code), Comments (no comment lines) etc]
+                             [C % L is ratio of comments to LOC etc]
+    radon mi .               [maintainability index, A good ... C bad]
+    radon me . --min B       [maintainability index with min of B]
+    radon hal .              [halstead .. not sure]
+
+  pylint
+  not sure yet.
+
+    pyreverse
+    Part of pylint and can draw UML diagrams.   see pyreverse -h
+    pyreverse -class=<class>                       [diagrams for classes related to class]
+    pyreverse -m                                   [include module name in class]
+    pyreverse --only-classnames
+    pyreverse -ASmy -o png -p myproj api_base.py
+    pyreverse -f SPECIAL -ASmy -o png -p myproj api_base.py
+    pyreverse -f ALL -ASmy -o png -p myproj api_base.py
+
+  pyflakes
+  not sure yet.
+
+  bandit
+  check for security vulnerabilities
+
+  mypy
+  checks for optionally enforced static types.
+
+    I have tried running this and you get lots of junk, however there are a few
+    useful hints on types being allocated incorrectly that may be useful.
+
+  snakefood
+  can build diagrams of code structure

@@ -1,0 +1,54 @@
+CODE QUALITY
+------------
+
+Very Useful:
+
+ Black		[automatically formats code]
+ Isort		[automaticallu formats inputs]
+
+Linters:
+
+ Flake8		[pyflakes, pycodestyle, mccabe]
+ PyLama		[pycodestyle, pydocstyle, pyflakes, mccabe,..]
+
+Single Apps:
+
+ pycodestyle	--max-line-length=88
+ easy to install and use.   88 makes it consistent with black.
+
+ pydocstyle
+ very easy to install and use
+
+ mccabe
+ extension of flake8, good for ensuring code complexity is not too high.
+
+ radon
+ radon cc .		[cyc complexity of . and below]
+ radon cc . --min C	[min complexity of C]
+ radon raw .		[LOC (lines of code), Comments (no comments etc]
+ radon mi .		[maintainability index, A good ... ]
+ radon mi . --min D	[min of D]
+ radon hal .		[halstead .. not sure]
+ 
+ pylint
+ not sure yet, but useful pyreverse
+
+   pyreverse
+   part of pylint and can draw UML diagrams, see pyreverse -h
+   
+   I have some of these that I have tried out and need to fill in.
+
+ pyflakes
+ not sure yet
+
+ bandit
+ check for security vulnerabilities
+
+ mypy
+ checks for optionally enforced static types
+
+   I have tried this and need to practice more.   You get lots of junk mixed
+   with useful hints about types being allocated incorrectly.
+
+ snakefood
+ build UML diagrams, couldn't get it working yet

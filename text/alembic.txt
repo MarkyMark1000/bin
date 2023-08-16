@@ -1,0 +1,22 @@
+Useful commands for alembic:
+
+  alembic init alembic    [initiate alembic environment]
+
+  [create migration script - beware autogenerate can have errors, test upgrade and downgrade]
+  alembic revision -m "create account table"
+  alembic revision -m "create account table" --autogenerate
+
+  If you want to remove revision, you need to downgrade to the appropriate version and then
+  remove the revision from the versions directory manually.
+
+  alembic upgrade head       [push latest migrations to db]
+  alembic upgrade +2,   alembic downgrade -1
+  alembic upgrade 8ac14      [upgrade to a specfic revision]
+  alembic downgrade -1       [remove last migration]
+  alembic downgrade 8ac14    [undo migrations to 8ac14]
+
+  alembic current            [view current revision]
+  alembic history            [view history of migrations]
+  alembic history --verbose  [verbose history of migrations]
+
+
