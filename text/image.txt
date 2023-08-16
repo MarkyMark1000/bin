@@ -1,1 +1,16 @@
-image.txt
+Preview (Markup)
+================
+
+Within the preview app there are basic image editing features.   Show the Markup
+toolbar by selecting the icon 'Show Markup Toolbar'.
+
+I found moving stuff hard.   Select the shape, but it and then paste it somewhere
+else.   Select a bit of background, copy it and patch up the hole.
+
+Change background color: Preview -> Preferences -> General
+
+Smart Lasso: selecting bits of complex shapes
+
+Use shift if you want to select a square, then tools -> crop.
+
+Tools -> flip horizontal or flip vertical

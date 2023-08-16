@@ -1,1 +1,35 @@
-kbs.txt
+VSCODE
+======
+
+code -> settings -> keyboard shortcuts, some are defined here (*)
+
+option+cmd+k                            - toggle bookmark
+ctrl+option+cmd+k                       - toggle bookmark, but with comment
+option+cmd+l                            - goto next bookmark
+option+cmd+j                            - goto previous bookmark
+option+cmd+shift+k                      - remove all bookmarks*
+
+multi line edit:
+esc                                     - end edit
+option + mouse click                    - select multiple places to edit at once
+cmd+option+Up/Down                      - select multiple lines for editing
+
+expand/collapse code:
+cmd+k cmd+0                             - fold all code
+cmd+k cmd+j                             - unfold all code
+cmd+k cmd+[                             - fold recursively
+cmd+k cmd+]                             - unfold recursively
+opt+cmd+[                               - fold local function
+opt+cmd+]                               - unfold local function
+
+toggle between terminals:
+cmd+shift+[                             - move back
+cmd+shift+]                             - move forward
+
+code navigation:
+Fn+F12                                  - goto function definition
+Fn+ctrl+F12                             - go back*
+
+editing:
+cmd+right/left arrow                    - skip to end/beginning of line
+opt+right/left arrow                    - skip to next/previous word

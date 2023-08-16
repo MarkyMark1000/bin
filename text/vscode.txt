@@ -1,1 +1,37 @@
-vscode.txt
+COMPARE TWO FILES
+=================
+
+  - Right click file and hit 'select for compare'
+  - Right click second file and hit 'compare with selected'
+
+COMPARE TWO PIECES OF CODE
+==========================
+
+  - Find one piece of code, select it, right click and select 'Select Text for Compare'
+  - Find a second piece of code, select it, right click and select 'Compare Text with previous Selection'
+
+ANALYSING GIT HISTORY
+=====================
+
+  FOR SINGLE FILE
+  ---------------
+
+    - Explorer Icon -> TimeLine
+      Shows changes in the file over time.   You can use 'Select for Compare' and 'Compare with Selected'
+      to see changes between different commits over time.   If you have GitLens installed, you can also
+      use git blame - icon in top right, right click the icon.
+    - Gitlens/Gitlens Inspect -> File HISTORY
+
+  FOR 2 COMMITS OR A BRANCH/COMMITS
+  ---------------------------------
+
+    - Gitlens/Gitlens Inspect -> Search & Compare.
+      Clear and previous comparisons and then hit the compare references button.   Select the
+      appropriate HEAD or commit codes.
+
+  INDIVIDUAL LINES OF CODE
+  ------------------------
+
+    - Hovering over class
+    - Gitlens Icon in top right, 'File Annotations'.   Hit 'Toggle File Blame'.   It lists commits
+      against lines of code that they impacted.   Hit 'File Annotations' againt to get rid of it.

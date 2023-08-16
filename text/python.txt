@@ -1,1 +1,54 @@
-python.txt
+COMMANDS
+========
+
+vars(object)        - prints variables associated with object
+
+TYPE HINTING
+============
+
+Examples:
+
+   from typing import List, Set, Tuple, Dict, Union, Optional
+
+   def get_full_name(first_name: str, last_name: str) -> str:
+      ....
+
+   def process_items(items_t: Tuple[int, int, str], items_s: Set[bytes]) -> int:
+      ....
+
+   def process_items(prices: Dict[str, float]):
+      ....
+
+   def process_items(item: Union[int, str]):        # multiple types
+      ....
+
+   def process_items(name: Optional[str] = None):
+      ....
+
+PYDANTIC
+========
+
+  Python library to perform data validation.   You create an instance of that class
+  with some values and it will validate the values, convert them to the appropriate
+  type and give you an object with all the data and get all of the editor support
+  with that resulting object.
+
+  Example:
+
+  from datetime import datetime
+  from typing import List, Optional
+  from pydantic import BaseModel
+
+  class User(BaseModel):
+     id: int
+     name = "John Doe"
+     signup_ts: Optional[datetime] = None
+     friends: List[int] = []
+
+  external_data = {
+    "id": "123",
+    "signup_ts: "2017-06-01 12:22",
+    "friends": [1, "2", b"3"]
+  }
+
+  user = User(**external_data)
