@@ -9,6 +9,33 @@ then
   echo ""
   echo "  GENERAL:"
   echo "  cq                    - python code quality"
+  echo "  strat                 - strategies, code review etc"
+  echo "  python                - python notes"
+  echo "  commands              - common commands"
+  echo "  image                 - image editing"
+  echo "  vscode                - notes on vscode"
+  echo "  kbs                   - keyboard shortcuts"
+  echo ""
+  echo "  WORK SPECIFIC:"
+  echo "  uc                    - shortcut for this menu"
+  for FILE in ~/bin/work_notes/*
+    do MYFILE="$(basename "$FILE" .txt)"
+    echo "  $MYFILE"
+  done
+  echo ""
+  echo "  COMMON APPLICATIONS:"
+  echo "  alembic               - help on alembic"
+  echo "  breakpoint            - help on breakpoint"
+  echo "  docker                - help on docker"
+  echo "  factory               - help on factory boy"
+  echo "  git                   - help on git"
+  echo "  poetry                - help on poetry"
+  echo "  psql                  - help on psql, pgdump etc (postgres)"
+  echo "  pytest                - help on pytest"
+  echo "  swagger               - help on swagger"
+  echo "  marshmallow           - help on marshmallow"
+  echo "  virtualenv            - help on virtualenv"
+  echo "  zsh                   - help on zsh"
 
 elif [ "$1" = "cq" ]
 then
@@ -39,7 +66,7 @@ then
    cat ~/bin/text/breakpoint.txt
 elif [ "$1" = "docker" ]
 then
-   cat ~/bin/text/docer.txt
+   cat ~/bin/text/docker.txt
 elif [ "$1" = "factory" ]
 then
    cat ~/bin/text/factory.txt
@@ -52,6 +79,9 @@ then
 elif [ "$1" = "psql" ]
 then
    cat ~/bin/text/psql.txt
+elif [ "$1" = "pytest" ]
+then
+   cat ~/bin/text/pytest.txt
 elif [ "$1" = "swagger" ]
 then
    cat ~/bin/text/swagger.txt
