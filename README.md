@@ -19,5 +19,3 @@ To make the uc command work, you need to adjust the initiation script be it ~.zs
 export PATH=~/bin:$PATH
 alias uc="~/bin/uc.sh"
 ```
-
-Add the .... to the ... file.
