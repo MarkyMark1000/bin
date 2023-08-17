@@ -3,6 +3,21 @@
 This project contains a simple script and some help files that I have put together
 to make development easier.
 
-Make the ... file executable
+YOU WILL NEED TO CREATE A work_notes DIRECTORY UNDER bin
+AND ADD ONE FILE, eg general.txt
+
+Make the uc.sh file executable do the following:
+
+```
+chmod 744 ~/bin/uc.sh
+```
+
+To make the uc command work, you need to adjust the initiation script be it ~.zshrc or
+~.zprofile etc and include this:
+
+```
+export PATH=~/bin:$PATH
+alias uc="~/bin/uc.sh"
+```
 
 Add the .... to the ... file.

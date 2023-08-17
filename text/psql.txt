@@ -1,0 +1,38 @@
+Psql
+====
+
+  psql -U postgres -h localhost
+  psql -U postgres -h localhost -p 5432 -d mydbname
+
+  /q                                    [quit]
+  
+  Enter sql commands followed by ';' and hit enter.
+  psql commands start in \
+
+  \h
+
+  \l                                    [list databases]
+  \c dbname                             [switch to database dbname]
+
+  \dt                                   [list tables]
+  \d tablename                          [list columns in tablename]
+  \d+                                   [list detailed columns in tablename]
+
+  createdb newdb                        [create a database called newdb]
+
+Dump:
+-----
+
+  pg_dump -U postgres databasename > db.sql         [text/sql dump]
+  pg_dump -U postgres -h localhost databasename > db.sql
+
+  pg_dump -U postgres -h localhost -F t databasename > db.tar [tar dump]
+
+Restore:
+--------
+
+  Create the database on the server (localhost) then:
+  psql -d newdatabasename -f db.sql
+
+  Alternatively, create new database and then:
+  pg_restore -U postgres -h localhost -F t -d databasename < db.tar

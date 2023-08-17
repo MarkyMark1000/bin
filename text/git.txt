@@ -1,0 +1,51 @@
+Git
+===
+
+  git status                        [check current code against branch]
+
+  git reset                         [remove all staged changes]
+  git reset --hard HEAD~            [reset most recent commit and remove code]
+  git reset --soft HEAD~1           [remove last commit, ie move to HEAD~1]
+
+  [Take commit before the most recent and restore it infront of the recent commit]
+  git revert HEAD~1 --no-edit
+
+  git log --oneline
+  git logu                          [selfed defined with username and colours]
+
+  git commit -m "...."              [commit staged changes with message]
+  git commit --amend                [staged changes added to most recent commit]
+                                    [message is edited]
+
+  [squash the last 3 commits, change pick to squash except on last commit]
+  git rebase -i HEAD~3
+
+  [code changes in branch, pull changes and move your commits to end]
+  git pull --rebase
+  [big code changes and merges with your version of the repository]
+  git pull
+
+  git checkout existing_branch
+  git checkout -b new_branch        [create new branch]
+  git branch -m new_branch_name     [rename a branch]
+  git branch -d new_branch_name     [delete a branch]
+
+  [delete multiple branches that begin with feature]
+  git branch -D `git branch --list 'feature/*'`
+
+  [useful if cannot checkout remote branch]
+  git ls-remote origin <branch>     [lists remote branches]
+  git fetch origin <branch>
+
+  git push origin branch_name
+
+  [Add specific commits to the current branch using git log hashcode]
+  git cherry-pick branchhashcode
+
+  git stash list                    [show stashes]
+  git stash show -p                 [detailed diff between recent stash and code]
+  git stash save <message>          [save stash with a message]
+  git stash apply                   [apply most recent stash to code]
+  git stash populate                [apply recent stash and remove]
+  git stash drop stash@{1}          [remove stash 1]
+  git stash clear                   [remove entire stash]

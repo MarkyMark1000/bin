@@ -1,0 +1,63 @@
+Docker
+======
+
+Useful commands for an extra clean after closing images and volumes:
+docker volume prune
+docker system prune -a
+
+Containers
+----------
+
+  [List all running Containers]
+  docker ps -a
+
+  [stop, but don't delete container]
+  docker kill container_name_or_id
+
+  [completely remove stopped container]
+  docker rm container_name_or_id
+
+Images
+------
+
+  [List all images]
+  docker images
+
+  [Remove docker image]
+  docker rmi image_name_or_id
+
+Running Images
+--------------
+
+  [Run docker image as container.   ti is terminal input, rm is remove afterwards]
+  [ubuntu is the image it downloads and bash is command line tool]
+  docker run -ti ubuntu:latest bash
+
+  [Execute command on already running container, use docker exec]
+  docker exec -d mycontainer touch /tmp/myfile
+
+  [Run container in background, use -d, see next statement aswell]
+  docker run -d -ti ubuntu:latest
+
+  [Connect to container running in background use attach]
+  docker attach container_name_or_id
+
+  [to detach from a container, use ctrl+p followed by ctrl+q]
+
+  [Make an image from a container (reverse of normal process)]
+  docker commit container_name_or_id my_new_image_name
+
+  [Debug docker container, look at logs]
+  docker logs container_name_or_id
+
+Networks
+--------
+
+  [List docker networks]
+  docker network ls
+
+  [Remove unused networks]
+  docker network prune
+
+  [Remove a single network]
+  docker network rm

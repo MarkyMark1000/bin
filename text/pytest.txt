@@ -1,0 +1,18 @@
+Pytest
+======
+
+  The -sx argument is useful for debugging, it stops on the error and reports the
+  problem.   Read the error and think about what might be wrong.   Useful when
+  small piece of code is causing lots of unit tests to fail.
+
+  pytest . -sx
+
+  [run single test file]
+  pytest -sx tests/somedir/test_something.py
+
+  [run match to pick unit test]
+  pytest -sx tests/somedir/test_something.py -k 'test_mytest'
+
+  [get pytest coverage report]
+  pytest --cov tests/somedir
+  pytest --cov=something tests/somedir

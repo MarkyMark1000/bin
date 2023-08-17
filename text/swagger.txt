@@ -1,0 +1,77 @@
+Swagger/OpenAPI
+===============
+
+  There is a swagger editor which is handy for copying yaml into and checking the
+  format is correct.
+
+  https://editor.swagger.io
+
+  I have installed the OpenAPI (swagger) extension on VSCode.   When editing a
+  swagger doc, you can click the API on the left and navigate the doc using
+  things like paths etc.
+  It has intellisence and if you click on the small window shaped icon, with
+  a small circle in the bottom right, at the top of VSCode, you can preview
+  the swagger doc.
+
+  A really interesting feature is that you can download example code by
+  selecting the drop down 'Generate Server' and then selecting flask-api.
+  There is also a menu for 'front end code'.
+
+  OpenAPI spec can be found here
+  https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.0.md#schema
+
+  IN PARTICULAR, openapi, info and paths ARE REQUIRED.
+
+Typical Doc
+-----------
+
+  If you find an example online, you can see how openapi and info used to provide basic
+  information.   It might be worth noting that you can pass in variables and use them
+  like jinja {{varname}}.
+
+  With respect to paths, you typically have a path such as /names: followed by a type
+  such as get: post: etc.
+
+  The responses section is quite important as id describes what the response will look
+  like if you get a 200 code etc.   A typical responses section will like like this:
+
+  responses:
+    200:
+      description: This is way this does
+      content:
+        application/json:                   # RETURN TYPE FOR 200
+          schema:
+            type: array                     # RETURN TYPE
+            items:
+              properties:
+                id:
+                  type: integer   etc
+
+  IT IS VERY USEFUL TO USE AUTOCOMPLETE WHEN WRITTING SWAGGER DOCS.   WITHIN VSCODE
+  TRY ctrl+space OR ctrl+shift+space
+
+tags
+----
+
+  Useful for positioning endpoints within the swagger page.   You add a description
+  of a set of tags at the top of the document, eg:
+
+  openapi: "3.0.0"
+  info:
+    version: "1.0"
+    title: My API description
+  tags:
+    - name: Article
+    - description: A description of Article
+
+  You then add these tags to a particular path, eg:
+
+  paths:
+    /:
+      get:
+        tags:
+          - Article
+
+Arrays and Objects (Dictionaries)
+---------------------------------
+

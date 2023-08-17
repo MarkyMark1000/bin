@@ -19,4 +19,7 @@ Useful commands for alembic:
   alembic history            [view history of migrations]
   alembic history --verbose  [verbose history of migrations]
 
+  alembic downgrade -1       [remove last migration]
+  alembic downgrade 9ac14    [remove migrations to 9ac14]
+
 

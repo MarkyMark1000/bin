@@ -4,6 +4,8 @@ Useful commands for breakpoint():
   ll                                [list code in current function]
   l  or  l 38                       [list code near breakpoint or line number]
   b lineno                          [add a breakpoint to lineno]
+  b filename:lineno                 [add breakpoint in filename at lineno]
+  b                                 [list all breakpoints]
   tbreak lineno                     [add a temporary breakpoint to lineno]
   b 4, var > 4                      [cond breakpoint line 4 if var > 4]
   cl                                [clear all breakpoints]
@@ -15,3 +17,27 @@ Useful commands for breakpoint():
   w(here)                           [print stack trace]
 
   --pdb                             [use with pytest to start debugger on failure]
+
+There is an interesting command 'display' for displaying multiple values within one go
+which can be useful debugging things like classes.   You add watch variables and when
+you want to see the values, just type 'display' by itself.   'undisplay' removes the
+watch:
+
+display instance
+display instance.id
+display
+undisplay
+
+There is something similar called 'commands', which executes python or pdb comands
+every time you hit a breakpoint.   IT WORKS ON THE PREVOIUS BREAKPOINT OR THE
+BREAKPOINT NUMBER FOLLOWING THE COMMANDS STATEMENT (see b).   Use 'silent' to
+prevent commands being echoed back.   'end' finishes your list of commands.
+To clear commands type 'commands' followed by 'end':
+
+(pdb) commands 3
+(pdb) silent
+(pdb) vars(self)
+(pdb) end
+(pdb) c
+(pdb) commands
+(pdb) end

@@ -1,0 +1,102 @@
+Factory Boy
+===========
+
+  There is often a decorator version of many of these functions.
+
+Sequences
+---------
+
+  Can be shared across attributes
+
+  When a field has a unique key, each object generated should have a unique
+  value.   Can use sequences for this.   example:
+
+    username = factory.Sequence(lambda n: f"user_{n}")
+
+Self Attribute
+--------------
+
+  When field references another field of the object being created, eg:
+
+    timestamp = factory.LazyFunction(datetime.now)
+    birthmonth = factory.SelfAttribute('timestamp.month')
+
+  When used with SubFactory, you gain access to an upward semantic using
+  double dot notation (ie parent), eg:
+
+    factory.SelfAttribute('..country.language')
+
+Lazy Attribute
+--------------
+
+  Takes as an argument, a method call, usually a lambda function, eg:
+
+    email = factory.LazyAttribute(lambda o: o.username)
+
+Lazy function
+-------------
+
+  This is a simpler version of the previous statement, but the function
+  takes no argument and just returns a value, eg:
+
+    timestamp = factory.LazyFunction(datetime.now)
+
+Lazy Attribute Sequence
+-----------------------
+
+  This takes a sequence (unique identifier) and lazy attribute.   As an
+  argument it takes a function with two parameters, one the object being
+  built and one for the sequence number, eg:
+
+    login = 'john'
+    email = factory.LazyAttributeSequence(lambda o, n:
+                                          '%s@%d.example.com' % (0.login, n))
+
+SubFactory
+----------
+
+  This is used to create subfactories within the factory, eg
+
+    bar = factory.SubFactory(BarFactory)
+
+Iterator
+--------
+
+  This takes successive values from an iterable, eg:
+
+    lang = factory.Iterator(['en','fr','es','it','de'])
+
+Transformer, maybe Dict and List
+--------------------------------
+
+  Other areas to investigate
+
+Postgeneration
+--------------
+
+  ToDo - Useful for Many to Many
+
+RelatedFactory
+--------------
+
+  ToDo
+
+Model arguments
+---------------
+
+  Arguments that can be controlled to use factory boy:
+
+    inline_args - non-kwarg arguments used by model dealt with here.
+    Params      - Some classes best defined with a few simple parameters
+                  that are not fields in the model.   Use 'Class Params:'
+    Traits      - Can specify that many fields can be updated based upon
+                  a flag.
+                  An example would be an order factory with status 'pending'
+                  When the factory is initiated with status 'shipped', the
+                  traits populate different factory fields.
+    exclude     - When writing a factory, it can be useful to have some fields
+                  created to help define other fields, but which are not passed
+                  to the model class when it is actually built, eg a datetime.
+    rename      - You can initiate a parameter with a set of values, then rename
+                  it to a parameter value that is expected after the factory
+                  object is created.

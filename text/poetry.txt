@@ -1,0 +1,48 @@
+Poetry
+======
+
+  poetry --version
+  poetry self update
+
+  [If you want to configure poetry so that virtual envs are within project directory]
+  poetry config virtualenvs.in-project true
+
+  [prefer to init in project]
+  poetry init
+
+  [less keen, but interesting structure and tests]
+  poetry new <new-project>                      [create a new project]
+  poetry new rp-poetry --name realpoetry        [use name realpoetry instead]
+  poetry new --src rp-poetry                    [put rp-poetry dir in src dir]
+
+  poetry env use python3                        [give poetry path to python file]
+
+  poetry add requests                           [add package to poetry]
+  poetry add black --group dev                  [add black to dev environment]
+  poetry add black@latest -- group dev
+  poetry remove black                           [remove package]
+
+  poetry installed                              [installs stuff into virtual env and]
+                                                [evaluates dependencies etc]
+
+  poetry update                                 [get latest dependencies and update]
+
+  poetry env list                               [list poetry virtual environments]
+  poetry config --list                          [list current configuration]
+  poetry env remove <envname>                   [remove virtual environment]
+
+  [running poetry lock processes all dependencies in project.toml file and locks]
+  [then in poetry.lock file]
+  poetry lock
+
+  poetry run python                             [run python in poetry virtual env]
+
+  poetry run python3 hello.pydantic             [run script in poetry]
+
+  poetry check                                  [make sure poetry files are Ok]
+
+  [export poetry environment into requirements files]
+  poetry export --output requirements.txt --without-hashes
+  poetry export --output requirements_dev.txt --dev --without-hashes
+  [or in the latest version of poetry]
+  poetry export --output requirements_dev.txt --with dev --without-hashes

@@ -28,3 +28,6 @@ temp/
 
 # exclude workspace
 *.code-workspace
+
+# exclude works specific notes
+work_notes/
