@@ -75,3 +75,117 @@ tags
 Arrays and Objects (Dictionaries)
 ---------------------------------
 
+Typically these take the following format:
+
+  # EXAMPLE DICTIONARY                              # EXAMPLE Arrays
+
+  schema:                                           schema:
+    type: object                                      type: array
+    properties:                                       items:
+      name:                                             type: integer
+        type: string                                    format: int64
+        example: "William"
+      age:
+        type: integer
+        example: 15
+
+Parameters
+----------
+
+When defining an api, you quite often get parameters in the following
+format:
+
+/someurl/{input_param_1}
+
+These are defined in the following way:
+
+  /someurl/{intput_id}
+    get:
+      ...
+      parameters:
+        - in: query
+        name: first_name
+        schema:
+          type: string
+          example: bob
+
+  -in: can have the values "query", "header", "path" or "cookie"
+       to understand query vs path, consider this:
+
+       /cars/honda/civic/coupe/{vin}?colour={black}
+
+       A car's vin generally doesn't change, but its colour can change.
+       path = resource identification, query params = resource filter/sort.
+
+Components
+----------
+
+Within the swagger/openapi document you define (typically at bottom) a
+components area where you can define re=usable schemas or parameters
+that can be used within the document.   These schemas can also contain
+schema definitions so you can get interdpendency.
+
+  coponents:
+    schemas:
+      MySchema:
+        properties:
+          success:
+            type: boolean
+            example: true
+          version:
+            type: string
+            example: v1
+    ...
+    parameters:
+      my_parameter:
+        name: my_parameter
+        in: path
+        description: "my parameter as integer"
+        required: true
+        schema:
+          type: integer
+    ...
+
+This schema would then be used within the doc in the following way:
+
+  responses:
+    "200":
+      description: "success if api works"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/MySchema"
+
+OR for a parameter:
+
+  parameters:
+    - $ref: "#/components/parameters/my_parameter"
+
+Content Negotiation
+-------------------
+
+You can have multiple content types within the swagger doc and the ui
+should return the appropriate display, for example:
+
+  content:
+    application/json:
+      ...
+    application/xml:
+      ...
+
+Post/Put etc
+------------
+
+A typical post/put definition will look like this:
+
+  post:
+    tags:
+      - Article
+    requestBody:
+      content:
+        application/json:
+          schema:
+            $ref.....
+    responses:
+      "200":
+      ....

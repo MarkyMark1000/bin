@@ -1,0 +1,36 @@
+Marshmallow
+===========
+
+Commonly associated with flask, so we use:
+
+  pip install flask-marshmallow
+
+Need to add imports:
+
+  from flask-marshmallo import Marshmallow
+
+You then create an instance of Marshmallow to use.   This can be in
+a serialization folder, but uses the app where the db is connection
+is instantiated.
+
+  ma = Marshmallow(app)                 # app is the flaks app.
+
+You then create a class/schema which specifies which fields you
+want from the model class when you are serializing/deserializing
+the model, eg:
+
+  class UserSchema(ma.schema):
+    fields = {'id', 'first_name', 'last_name'}
+
+We then instantiate the serializer/deserializer class, but this is
+KEY: YOU SPECIFIY IF YOU ARE GOING TO DO IT ON ONE OR MULTIPLE OBJECTS:
+
+  user_schema = UserSchema()
+  users_schema = UserSchema(many=True)
+
+If you then want to convert SQLAlchemy to json to return in an API, you
+use something like this:
+
+  users_list = users.query.all()
+  result = usrs_schema.dump(users_list)
+  return jsonify(result.data)     # or possibly jsonify(result)

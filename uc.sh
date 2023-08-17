@@ -52,6 +52,18 @@ then
 elif [ "$1" = "psql" ]
 then
    cat ~/bin/text/psql.txt
+elif [ "$1" = "swagger" ]
+then
+   cat ~/bin/text/swagger.txt
+elif [ "$1" = "marshmallow" ]
+then
+   cat ~/bin/text/marshmallow.txt
+elif [ "$1" = "zsh" ]
+then
+   cat ~/bin/text/zsh.txt
+elif [ "$1" = "virtualenv" ]
+then
+   cat ~/bin/text/virtualenv.txt
 fi
 
 for FILE in ~/bin/work_notes/*

@@ -1,0 +1,17 @@
+Virtualenvwrapper
+=================
+
+  mkvirtualenv new_env                  [make a new virtual environment]
+
+  which pip                             [location of virtual env]
+
+  deactivate                            
+
+  workon virtual_env                    [use this virtual environment]
+
+  workon                                [list all virtual environments]
+
+  rmvirtualenv virtual_env              [remove virtual environment]
+
+  [create a virtual environment with a specific python version]
+  mkvirtualenv -p ....python3.9 myproj

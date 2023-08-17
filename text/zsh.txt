@@ -1,0 +1,5 @@
+Zsh
+===
+
+  find . | grep some_name           [find path to files with some_name] in it
+
