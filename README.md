@@ -19,3 +19,14 @@ To make the uc command work, you need to adjust the initiation script be it ~.zs
 export PATH=~/bin:$PATH
 alias uc="~/bin/uc.sh"
 ```
+
+### MAKING ADJUSTMENTS
+---
+
+When making adjustments, don't forget to check who the code is logged in as and which
+repository it is pointing at:
+
+```
+git config -l
+git remote -v
+```
