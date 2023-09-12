@@ -50,29 +50,31 @@ Git
   git stash drop stash@{1}          [remove stash 1]
   git stash clear                   [remove entire stash]
 
-  [To switch between users, you can use the following commands]:
-  git config --global user.name "MarkyMark1000"
-  git config --global user.email mark_john_wilson@yahoo.co.uk
-  git config -l                     [see who you are logged in as]
-
   [Multiple git accounts on one computer]
-  [create multiple keys in the ~/.ssh directory and load into gitlab etc]
-  ssh-keygen -t rsa -C “mark_john_wilson@yahoo.co.uk”
-  [tell .ssh that the new key exists]
-  ssh-add ~/.ssh/id_rsa_newsshkey
-  [code must be associated with the appropriate remote repository, eg]
-  git remote add origin git@github.com:MarkyMark1000/new_repository.git
-  [setup a config (not .txt) file in the ~/.ssh directory to specify which]
-  [keys to use for a path]
-    Host github.com
-      HostName github.com
-      User git
-      IdentityFile ~/.ssh/id_rsa_newsshkey
-    Host github-blah.com
-      HostName github.com
-      User git
-      IdentityFile ~/.ssh/id_rsa_blah
-  
-  [to analyse and change which remote repositories code is looking at]
-  git remote -v
-  git remote set-url origin git@github.com:USERNAME/Repository.git
+
+    [To switch between users, you can use the following commands]:
+    [git has --local, --global and --system, the default is --local]
+    git config --local user.name "MarkyMark1000"
+    git config --local user.email mark_john_wilson@yahoo.co.uk
+    git config -l                     [see who you are logged in as]
+
+    [create multiple keys in the ~/.ssh directory and load into gitlab etc]
+    ssh-keygen -t rsa -C “mark_john_wilson@yahoo.co.uk”
+    [tell .ssh that the new key exists]
+    ssh-add ~/.ssh/id_rsa_newsshkey
+    [code must be associated with the appropriate remote repository, eg]
+    git remote add origin git@github.com:MarkyMark1000/new_repository.git
+    [setup a config (not .txt) file in the ~/.ssh directory to specify which]
+    [keys to use for a path]
+      Host github.com
+        HostName github.com
+        User git
+        IdentityFile ~/.ssh/id_rsa_newsshkey
+      Host github-blah.com
+        HostName github.com
+        User git
+        IdentityFile ~/.ssh/id_rsa_blah
+    
+    [to analyse and change which remote repositories code is looking at]
+    git remote -v
+    git remote set-url origin git@github.com:USERNAME/Repository.git
