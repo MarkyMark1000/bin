@@ -19,6 +19,9 @@ Single Apps:
  pydocstyle
  very easy to install and use
 
+    I copy the relative path to a file and then run:
+    pydocstyle --select=D102,D103,D201,D207,D208,D209,D300 copied_relative_path
+
  mccabe
  extension of flake8, good for ensuring code complexity is not too high.
 
@@ -49,6 +52,11 @@ Single Apps:
 
    I have tried this and need to practice more.   You get lots of junk mixed
    with useful hints about types being allocated incorrectly.
+
+   I suggest installing it globally, copying the relative path of the file
+   you are interested and then using this basic version:
+
+   mypy --strict --ignore-missing-imports copied_relative_path
 
  snakefood
  build UML diagrams, couldn't get it working yet
