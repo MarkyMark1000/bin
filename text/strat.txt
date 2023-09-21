@@ -7,6 +7,10 @@ CODE REVIEWS
   - fetch AND pull the branch
   - run migrations
   - run flake8
+  - run mypy --strict --ignore-missing-imports copied_relative_path
+    and check for any obvious missing type hints.
+  - run pydocstyle --select=D102,D103,D201,D207,D208,D209,D300 copied_relative_path
+    and check for any missing docstrings.
   - run code and make sure ui and /admin/ look good
   - run unit tests.
   - run coverage and make sure unit tests cover new code
