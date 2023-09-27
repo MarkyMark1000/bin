@@ -25,6 +25,26 @@ Examples:
    def process_items(name: Optional[str] = None):
       ....
 
+DATACLASSES
+===========
+
+   These are used to automatically add functions to a class such as __init__, __eq__ etc.
+   You need to 'from dataclasses import dataclass' and then use something like this:
+
+   @dataclass
+   class InventoryItem:
+      name: str
+      unit_price: float
+      quantity_on_hand: int = 0
+
+      def total_cost(self) -> float:
+         return self.unit_price * self.quantity_on_hand
+
+   It is possible to control which dunder functions are built with arguments to dataclass
+   decorator.
+   There are useful functions such as asdict(), astuple(), is_dataclass() that may be
+   useful.
+
 PYDANTIC
 ========
 
@@ -52,3 +72,18 @@ PYDANTIC
   }
 
   user = User(**external_data)
+
+SPECIAL FUNCTIONS
+=================
+
+  map(fun, iter):       returns a list of results after applying function 'fun' to each item of
+                        the iterable 'iter'
+
+  filter(fun, seq):     filters out a sequence (list etc).   The function 'fun' is applied to each
+                        item in the sequence 'seq' and if it returns True, the item is returned.
+
+  reduce(fun, seq):     This is now part of itertools which must be imported.   The general process:
+                        - First two elements of 'seq' and result of 'fun' is obtained.
+                        - Apply 'fun' to the previous result and element 3 of 'seq'
+                        - Continue this proess until all elements of 'seq' have been processed and
+                        a single result is obtained.
