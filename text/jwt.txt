@@ -1,0 +1,7 @@
+JWT
+===
+
+This link can be very useful for decoding JWT tokens and seeing what information they
+contain:
+
+https://jwt.io

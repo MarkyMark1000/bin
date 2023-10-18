@@ -14,6 +14,7 @@ kill $PID        or kill -9 $PID     // to forcefully kill
 
 # Uninstall pre-commit
 pre-commit uninstall
+pre-commit uninstall -t pre-push
 
 # install pre-commit as a pre-commit, which I don't like because
 # it runs every time a make commit or edit it [most annoying]
