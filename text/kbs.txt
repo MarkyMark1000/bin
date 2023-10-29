@@ -30,6 +30,12 @@ code navigation:
 Fn+F12                                  - goto function definition
 Fn+ctrl+F12                             - go back*
 
+comments:
+cmd+/                                   - toggles code comment on/off
+shift+opt+all                           - toggles block comment on/off
+
 editing:
 cmd+right/left arrow                    - skip to end/beginning of line
 opt+right/left arrow                    - skip to next/previous word
+opt+up/down arrow                       - move current line up or down
+shift+opt+up/down arrow                 - copy current line up or down
