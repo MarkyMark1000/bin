@@ -1,3 +1,19 @@
+LIST OF USEFUL EXTENSIONS
+=========================
+
+  - Back & Forth  (Adds back/forth naviation buttons)
+  - Bookmarks (Mark lines and jump between them)
+  - Current File Path (display current files path)
+  - Docker (create, manage containers, very useful)
+  - GitLens (Vizualize code authorship, very useful)
+  - open in browser (open current file in browser)
+  - OpenAPI (Swagger) Editor (checks format of swagger)
+  - Pylance (intellisence etc)
+  - Python (linting, debugging etc, very useful)
+  - SQL Formatter (format sql files)
+  - Volar (Vue Language features)
+  - YAML
+
 COMPARE TWO FILES
 =================
 
