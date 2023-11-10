@@ -13,6 +13,7 @@ LIST OF USEFUL EXTENSIONS
   - SQL Formatter (format sql files)
   - Volar (Vue Language features)
   - YAML
+  - Format in Context Menus (format multiple files in one go)
 
 COMPARE TWO FILES
 =================
