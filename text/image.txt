@@ -14,3 +14,49 @@ Smart Lasso: selecting bits of complex shapes
 Use shift if you want to select a square, then tools -> crop.
 
 Tools -> flip horizontal or flip vertical
+
+GIMP
+====
+
+Gimp has free tutorials on the basics here:
+https://www.gimp.org/tutorials/
+
+GIMP Quickies:
+
+image -> scale image            changes size of image which can be seen in top bar of gimp.
+                                the chain locks the aspect ratio.
+
+file -> export                  save or overwrite the image.
+file -> overwrite
+
+tools -> transform -> crop      also a tool for croping image.    Use esc to cancel or enter to crop.
+                                found it quirky.   Save/Export image if having trouble.
+
+tools -> selection tools ->     tool for selecting shapes.   Can add things like rounded corners. and
+rectangle select, then          then crop the image.
+image -> crop to selection
+
+tools -> transform -> rotate    also a tool for rotating.   Fairly intuitive.
+
+Simple Floating Logo:
+
+file -> new                     create new image with specific size.
+
+There are two squares on the left set of tools with a foreground and background colour.   Change the
+foreground colour to black.
+
+tools -> paint tools ->         or use the bucket fill tool icon.   There are lots of options here.
+bucket fill
+
+tools -> text                   add text or can use icon on the left.   You need to change the foreground
+                                colour or swap the foreground/background colour.
+                                On the right hand side there are things where you can select the font and
+                                the layer that you are currently working on.
+
+Layer -> new from visible       creates a new layer from all visible layers.
+
+filters -> blur ->              applies a blur effect to the merged image layer.
+gaussian blur
+
+I got up to this section, but didn't finish it:
+https://www.gimp.org/tutorials/Floating_Logo/#adding-some-text
