@@ -22,6 +22,7 @@ Gimp has free tutorials on the basics here:
 https://www.gimp.org/tutorials/
 
 GIMP Quickies:
+--------------
 
 image -> scale image            changes size of image which can be seen in top bar of gimp.
                                 the chain locks the aspect ratio.
@@ -39,6 +40,7 @@ image -> crop to selection
 tools -> transform -> rotate    also a tool for rotating.   Fairly intuitive.
 
 Simple Floating Logo:
+---------------------
 
 file -> new                     create new image with specific size.
 
@@ -55,8 +57,40 @@ tools -> text                   add text or can use icon on the left.   You need
 
 Layer -> new from visible       creates a new layer from all visible layers.
 
-filters -> blur ->              applies a blur effect to the merged image layer.
+filters -> blur ->              applie s a blur effect to the merged image layer.
 gaussian blur
 
-I got up to this section, but didn't finish it:
-https://www.gimp.org/tutorials/Floating_Logo/#adding-some-text
+Layer -> New Layer              or right click active layer.   Creates a new layer.
+
+filters -> render -> noise      adds lots of colours to a layer
+-> plasma
+
+filters -> map -> bump map      creates a kind of 3D image from the coloured layer and white blurred text layer.
+                                might need to hide some of the layers to see this.
+
+PERSONAL NOTES
+--------------
+
+To make a nicely blended background fade, create a new image:
+    - tools -> paint tools -> gradient, then pick foreground and background colours and drag the line out.
+    - add a new transparent layer
+    - use the gradient tool again, but change it to blend foreground to transparent and change the shape to radial.
+    - drag it out from the top left corner to make a light source.
+    - reduce the transparency of the layer to what looks good (roughly 50) and the light source blends into the
+      background colour.
+
+To add a drop shadow to something like text use:
+    - filters -> light and shadow -> drop shadow
+
+To add a bevel effect:
+    - filters -> Decor -> add bevel
+
+I don't think add border works well, but can use filters -> decor -> add border.
+
+layer -> layer to image size,
+right click the text layer and pick 'alpha to selection' to select the text
+select -> invert
+
+
+
+
