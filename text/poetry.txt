@@ -46,3 +46,28 @@ Poetry
   poetry export --output requirements_dev.txt --dev --without-hashes
   [or in the latest version of poetry]
   poetry export --output requirements_dev.txt --with dev --without-hashes
+
+  pyproject.toml
+  --------------
+
+  The packages that you add to the project and which group they are in tend
+  to be added to the pyproject.toml file.   Here are some useful notes for
+  upgrading (which can be a real pain):
+
+  - It tends to specify a python version at the top, eg:
+  python = "^3.8"
+
+  - There are different ways to specify python packages:
+    - Exact version, eg mypackage = "2.1.7"
+    - Caret version, eg mypackage = "^2.1.7", this allows poetry to upgrade to
+      any version that does not change the left most digit.
+    - Tilde version, eg mypackage = "~2.1.7", effect depends upon the numbers
+      you specify.   "~2.1.7" would only allow patch level changes, if you use
+      "~2.1", then it would allow >=2.1 < 2.2.   "~2" would allow anything
+      starting with a 2.   Warning - might cause confusion down the line.
+    - Wildcard version, where any number is allowed at the wildcard, eg
+      "2.1.*"
+    - One or more specific inequalities, eg: mypackage = ">= 1.2, < 1.5, !=1.2.2"
+  
+  - Note - adjusting these manually can result in problem solver errors.   If you
+    hit this, try adding/removing them manually using poetry add.

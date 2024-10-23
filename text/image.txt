@@ -55,7 +55,8 @@ tools -> text                   add text or can use icon on the left.   You need
                                 On the right hand side there are things where you can select the font and
                                 the layer that you are currently working on.
 
-Layer -> new from visible       creates a new layer from all visible layers.
+Layer -> new from visible       right click on layer or use menu, creates a new layer from all visible
+                                layers.
 
 filters -> blur ->              applie s a blur effect to the merged image layer.
 gaussian blur

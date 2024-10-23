@@ -1,0 +1,78 @@
+SQLAlchemy
+
+============
+
+Foreign Key and backref
+-----------------------
+
+A foreign key can be defined in the following way:
+
+```
+some_id = Column(
+    Integer,
+    ForeignKey("other_table.id"),
+    nullable=False,
+    comment="Foreign key to other_table",
+)
+other_table = relationship(other_table, backref="some_ids")
+```
+
+This is like the sub-table of a parent table.   The some_id column has
+integer values that must be present in the other_table.id column.
+A variable called other_table references the parent record in other_table
+and the backref 'some_ids' seems to add a property onto other_table called
+some_ids that contains all of the records from this table associated with the
+parent record in the 'other_table' table.
+
+Notes about backref and back_populates:
+---------------------------------------
+
+backref - uses a bi-directional back_populates configuration and is referenced
+    as legacy within the docs.   They indicate that back_populates is prefered.
+back_populates - This allows objects on both sides of each relationship() to
+    synchronize in-Python state changes.
+
+back_populates
+--------------
+
+To use back_populates, you might see something like this:
+
+
+On the parent table, you would have something like this:
+```
+sub_table_variable = relationship("SubTable", back_populates="parent_table_variable", lazy=True)
+```
+
+
+You would then access 
+
+
+On the sub-table, you would have something like this:
+```
+parent_table_variable = relationship("ParentTable", back_populates="sub_table_variable", lazy=True)
+```
+You would also add a foreign key onto the sub-table
+
+
+lazy = ‘select’, 'joined' or 'subquery' (or True):
+    Allows you to access properties using something like this:
+    ```
+    session.query(SomeTable).first().subrecords
+    ```
+    The select, joined and subquery arguments specify how the records are retrieved
+
+lazy = ‘dynamic’ (or False)
+    Returns a query object that you can filter more.   You would need to use
+    something like this:
+    ```
+    session.query(SomeTable).first().subrecords.all()
+    ```
+
+
+
+
+
+
+
+
+
