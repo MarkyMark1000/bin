@@ -78,3 +78,6 @@ Git
     [to analyse and change which remote repositories code is looking at]
     git remote -v
     git remote set-url origin git@github.com:USERNAME/Repository.git
+
+  .gitkeep  - filename commonly used to keep directories within git.
+

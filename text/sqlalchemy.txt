@@ -68,8 +68,17 @@ lazy = ‘dynamic’ (or False)
     session.query(SomeTable).first().subrecords.all()
     ```
 
+Common Functions when Querying
+-----------------------
+.one()          - one row or raise an exception
+.one_or_none()  - return at most one row or None.
+.scalar()       - first element of first result or None
+.scalars()      - I believe it is first element of each result or None (ie multi-row)
+.scalar_one()   - produce one scalar result or an exception (sames as .scalars().one())
+.all()          - I believe it fetches all rows in one go.
+.first()        - first row or None.
 
-
+.fetchall(), .fetchone(), .fetchmany() etc are for backward compatibility with old versions.
 
 
 
