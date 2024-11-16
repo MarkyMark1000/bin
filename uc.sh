@@ -34,6 +34,7 @@ then
   echo "  psql                  - help on psql, pgdump etc (postgres)"
   echo "  pytest                - help on pytest"
   echo "  swagger               - help on swagger"
+  echo "  sqlalchemy            - help on sqlalchemy"
   echo "  marshmallow           - help on marshmallow"
   echo "  virtualenv            - help on virtualenv"
   echo "  zsh                   - help on zsh"
@@ -89,6 +90,9 @@ then
 elif [ "$1" = "swagger" ]
 then
    cat ~/bin/text/swagger.txt
+elif [ "$1" = "sqlalchemy" ]
+then
+   cat ~/bin/text/sqlalchemy.txt
 elif [ "$1" = "marshmallow" ]
 then
    cat ~/bin/text/marshmallow.txt
