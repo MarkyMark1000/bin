@@ -15,6 +15,7 @@ then
   echo "  image                 - image editing"
   echo "  vscode                - notes on vscode"
   echo "  kbs                   - keyboard shortcuts"
+  echo "  uml                   - notes on uml diagrams"
   echo ""
   echo "  WORK SPECIFIC:"
   echo "  uc                    - shortcut for this menu"
@@ -60,6 +61,9 @@ then
 elif [ "$1" = "kbs" ]
 then
    cat ~/bin/text/kbs.txt
+elif [ "$1" = "uml" ]
+then
+   cat ~/bin/text/uml.txt
 elif [ "$1" = "alembic" ]
 then
    cat ~/bin/text/alembic.txt
