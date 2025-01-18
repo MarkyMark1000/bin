@@ -21,18 +21,21 @@ CODE REVIEWS
 CODE STANDARDS
 ==============
 
- Database Normalization
+ Database Design and Normalization
  ----------------------
+   - Identify the primary key columns that uniquely identifiy a row.   It must be unique, not null and cannot be changed.
    - 1st NF:	Each column is single valued, ie no multi valued columns
-		and no repeating groups such as author_1, author_2
-   - 2nd NF:	In 1st NF AND
-		Non key columns only depend upon the primary key, this is
-		very noticable when you have multiple primary key columns
-		such as customer_id and store_id
-   - 3rd NF:	In 2nd NF AND
-		No transititive dependencies, ie indirect dependencies on
-		primary key, eg book_id determines genre_id and genre_id
-		determines genre_type.
+		and no repeating groups such as author_1, author_2.   Potentially remove into another table with a foreign key to the initial table.
+   - 2nd NF:	In 1st NF AND generally occurs when you have a multi column primary key.
+		Non key fields should depend entirely on the primary key.   Go through each non key column and ask if it is dependent upon all fields
+    within the primary key.   If it isn't then potentially remove it into a different table with the column that it is dependent upon, which
+    can then link back to the original table.
+   - 3rd NF:	In 2nd NF AND no transitative dependencies.   Go through the non-key columns and see if any of them are dependent upon other
+   non key fields within the database.   If they are move them out into a different table and link back via a single column or completely
+   remove them.
+   - Relationships - go through the relationships in the table and see if you need one to one, one to many, many to many etc.
+   - Unique Indices - see if we need any unique indices to uniquely identify rows, which may occur when you use integer primay keys for
+   efficiency but it is something like name or code that uniquely identifies a record.
 
  ENCAPSULATION
  -------------
