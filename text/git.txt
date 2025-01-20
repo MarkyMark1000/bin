@@ -85,20 +85,16 @@ Git
   ---------
 
   Temporary way to look at branches without worrying about commits not being finished or
-  needing to stash changes.    Use for short periods of time only.
-    
-  Initial Setup:
-  - move to the parent directory to the git repository (eg cd .. or cd ../..)
-    and then create a new directory structure, eg mkdir project_worktrees
-  - Within vs code add the folder project_worktrees to your project so you can navigate between
-     then.   VSCode should recognise that you have different branches checked out.
-  - return to the project directory (eg cd ./project or cd ./blah/project)
+  needing to stash changes.    Can compare files within VSCode.   Use for short periods
+  of time only.
 
   General use:
   -
     # create a worktree, which should be added to the worktree directory
-    git worktree create ../project/project_worktrees        
+    git worktree add ../../project_worktree branch_to_checkout   
   -
     # remove a directory, should be removed from worktree directory
-    git worktree remove ../project/project_worktrees      # 
+    git worktree remove ../../project/project_worktree
 
+  Within VSCode add the directory ../../project_worktree as a folder and then you should be
+  able to move to the worktree when needed.   WARNING: terminal does not change path!
