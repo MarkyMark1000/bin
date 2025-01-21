@@ -80,8 +80,13 @@ Common Functions when Querying
 
 .fetchall(), .fetchone(), .fetchmany() etc are for backward compatibility with old versions.
 
+Common Functions when Querying
+-----------------------
 
+.join(some_table, isouter=True)         - left outer join
+.join(some_table, full=True)            - full outer join
 
+SQLAlchemy doesn't have a right join, instead reverse the order of the joins and do a left join.
 
 
 
