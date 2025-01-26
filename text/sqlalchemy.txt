@@ -89,4 +89,25 @@ Common Functions when Querying
 SQLAlchemy doesn't have a right join, instead reverse the order of the joins and do a left join.
 
 
+Constraints
+-----------
 
+Can generally be added to a column or table, eg:
+
+NOTE:   NAME IS OPTIONAL AND CAN PROVIDE A NAMING CONVENTION
+
+Unique:
+
+Column("col1", Integer, unique=True),                   # column type
+
+UniqueConstraint("col2", "col3", name="uix_1"),         # table type
+
+Check:
+
+Column("col1", Integer, CheckConstraint("col1>5")),         # column type
+CheckConstraint("col2 > col3 + 5", name="check1"),          # table type
+
+Primary Key:
+
+Column("id", Integer, primary_key=True),                        # column type
+PrimaryKeyConstraint("id", "version_id", name="mytable_pk"),    # table type

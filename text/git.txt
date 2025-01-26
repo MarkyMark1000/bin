@@ -42,6 +42,10 @@ Git
   [Add specific commits to the current branch using git log hashcode]
   git cherry-pick branchhashcode
 
+  [Merge another branch into the current branch and potentially abort a merge]
+  git merge other-branch
+  git merge --abort
+
   git stash list                    [show stashes]
   git stash show -p                 [detailed diff between recent stash and code]
   git stash save <message>          [save stash with a message]
