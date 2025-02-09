@@ -1,7 +1,104 @@
 COMMANDS
 ========
 
-vars(object)        - prints variables associated with object
+Useful for debugging or initial setup:
+--------------------------------------
+
+help(...)            - help on the topic
+dir(...)             - lists methods associated with object
+vars(...)            - prints variables associated with object
+
+(), [], {}           - setup tuple, list, set or dictionary
+[5]*5                - setup list with 5 initial values of 5
+
+a[-1]                - get last element
+a[:-3]               - get up to 3rd last element
+a[::-2]              - get but going backwards in steps of -2
+
+list.copy, etc       - basic shallow copy works for basic types
+
+Basic core Python:
+------------------
+
+abs()                all()             any()             ascii()           bin()
+callable()           chr()             compile()         complex()         divmod()
+enumerate()          eval()            exec()
+filter()             float()           format()          frozenset()
+getattr()            globals()
+hasattr()            help()            hex()
+id()                 int()             isinstance()      issubclass()
+iter()
+len()                list()            locals()
+map()                max()             memoryview()      min()             next()
+object()             oct()             open()            ord()
+pow()                print()
+range()              repr()            reversed()        round()
+set()                setattr()         slice()           sorted()
+str()                sum()             super()
+tuple()              type()
+zip()
+
+Core Type methods
+-----------------
+
+str.capitalize, str.lower, str.upper, str.swapcase
+str.startswith, str.endswith
+
+str.find, str.rfind                 [find lowest index from left/right or return -1]
+str.index, str.rindex               [find lowest index from left/right or raise error]
+
+str.isalnum, str.isalpha, str.isdigit, str.islower, str.isnumeric, str.isupper
+str.join
+str.lstrip, str.rstrip, str.strip
+str.replace
+str.split, str.rsplit
+
+list.append, list.extend            [add object or list/iterable to end of list]
+list.index, tuple.index             [find item index or raise error]
+list.insert                         [before index, insert object]
+list.pop                            [remove and return item at index, default last]
+list.remove                         [remove first occurance of value]
+list.reverse
+list.sort
+
+dict.get                            [get value for key OR default value]
+dict['z']=value, dict.update        [add single k:v or dictionary]
+dict.keys, dict.values, dict.items
+dict.pop, dict.popitem              [remove element by key or remove last element(lifo)]
+
+set.add, set.update                 [add one elemnt or iterables to the set]
+set.difference (_update)            [return set of items in first set, but not input set, can update set]
+set.discard                         [remove single item from set if present (no error)]
+set.intersection (_update)          [return set of items present in both sets, can also update set]
+set.isdisjoint                      [return true if none of items are present in both sets]
+set.issubset                        [true if all items in set are present in argument set]
+set.issuperset                      [true if set contains all items in argument set]
+set.pop, set.remove                 [remove random item or specific item (with error)]
+set.symmetric_difference (_update)  [return all items, except those present in both sets, can update]
+set.union                           [union of 1 or more iterables to the set]
+
+SPECIAL FUNCTIONS
+-----------------
+
+  zip()                 zips two similar sized iterables into an iterable of tuplesq
+
+  map(func, iter):      returns a list of results after applying function 'fun' to each item of
+                        the iterable 'iter'
+
+  filter(func, seq):    filters out a sequence (list etc).   The function 'fun' is applied to each
+                        item in the sequence 'seq' and if it returns True, the item is returned.
+
+  reduce(func, seq):    Must be imported from functools.   Example for a = [1,2,3,4] and
+                        reduce(lambda x,y: x+y,z)
+                        - 1 plus 2 is three, three plus 3 is 6, 6 plus 4 is 10
+                        - produces a single result of 10
+
+   bisect_left(itr,x)   Must be imported from bisect returns the index of the leftmost number which is
+                        less then or equal to x.   iter MUST BE SORTED.
+   
+   bisect_right(itr,x)  Must be imported from bisect and returns index of the rightmost number which is
+                        less than or equal to x PLUS ONE.   If you want the index of the last number,
+                        subtract 1 from the result.   iter MUST BE SORTED.
 
 TYPE HINTING
 ============
@@ -72,18 +169,3 @@ PYDANTIC
   }
 
   user = User(**external_data)
-
-SPECIAL FUNCTIONS
-=================
-
-  map(fun, iter):       returns a list of results after applying function 'fun' to each item of
-                        the iterable 'iter'
-
-  filter(fun, seq):     filters out a sequence (list etc).   The function 'fun' is applied to each
-                        item in the sequence 'seq' and if it returns True, the item is returned.
-
-  reduce(fun, seq):     This is now part of itertools which must be imported.   The general process:
-                        - First two elements of 'seq' and result of 'fun' is obtained.
-                        - Apply 'fun' to the previous result and element 3 of 'seq'
-                        - Continue this proess until all elements of 'seq' have been processed and
-                        a single result is obtained.
