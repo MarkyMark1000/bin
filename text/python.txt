@@ -93,12 +93,16 @@ SPECIAL FUNCTIONS
                         - 1 plus 2 is three, three plus 3 is 6, 6 plus 4 is 10
                         - produces a single result of 10
 
-   bisect_left(itr,x)   Must be imported from bisect returns the index of the leftmost number which is
-                        less then or equal to x.   iter MUST BE SORTED.
+   bisect_left(itr,x)   Must be imported from bisect, search from left and find index of the first
+                        number where x is less than or equal to this number.   If x is bigger than
+                        the last number, 1 ia added to the last index, ie out of bounds.   Use
+                        result with .index(result, object).   iter MUST BE SORTED ASCENDING.
    
-   bisect_right(itr,x)  Must be imported from bisect and returns index of the rightmost number which is
-                        less than or equal to x PLUS ONE.   If you want the index of the last number,
-                        subtract 1 from the result.   iter MUST BE SORTED.
+   bisect_right(itr,x)  Must be imported from bisect, search from right and find index of the first
+                        number where x is less than this number but greater than or equal to i-1.
+                        If you want the index of the last number, subtract 1 from the result.   If
+                        x is bigger than the last number, 1 is added to the last index, ie out of bounds.
+                        Use result with .insert(result, object).   iter MUST BE SORTED ASCENDING.
 
 TYPE HINTING
 ============
