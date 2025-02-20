@@ -1,81 +1,81 @@
-COMMANDS
-========
+PYTHON
+======
 
 Useful for debugging or initial setup:
 --------------------------------------
 
-help(...)            - help on the topic
-dir(...)             - lists methods associated with object
-vars(...)            - prints variables associated with object
-
-(), [], {}           - setup tuple, list, set or dictionary
-[5]*5                - setup list with 5 initial values of 5
-
-a[-1]                - get last element
-a[:-3]               - get up to 3rd last element
-a[::-2]              - get but going backwards in steps of -2
-
-list.copy, etc       - basic shallow copy works for basic types
+  help(...)            - help on the topic
+  dir(...)             - lists methods associated with object
+  vars(...)            - prints variables associated with object
+  
+  (), [], {}           - setup tuple, list, set or dictionary
+  [5]*5                - setup list with 5 initial values of 5
+  
+  a[-1]                - get last element
+  a[:-3]               - get up to 3rd last element
+  a[::-2]              - get but going backwards in steps of -2
+  
+  list.copy, etc       - basic shallow copy works for basic types
 
 Basic core Python:
 ------------------
 
-abs()                all()             any()             ascii()           bin()
-callable()           chr()             compile()         complex()         divmod()
-enumerate()          eval()            exec()
-filter()             float()           format()          frozenset()
-getattr()            globals()
-hasattr()            help()            hex()
-id()                 int()             isinstance()      issubclass()
-iter()
-len()                list()            locals()
-map()                max()             memoryview()      min()             next()
-object()             oct()             open()            ord()
-pow()                print()
-range()              repr()            reversed()        round()
-set()                setattr()         slice()           sorted()
-str()                sum()             super()
-tuple()              type()
-zip()
+  abs()                all()             any()             ascii()           bin()
+  callable()           chr()             compile()         complex()         divmod()
+  enumerate()          eval()            exec()
+  filter()             float()           format()          frozenset()
+  getattr()            globals()
+  hasattr()            help()            hex()
+  id()                 int()             isinstance()      issubclass()
+  iter()
+  len()                list()            locals()
+  map()                max()             memoryview()      min()             next()
+  object()             oct()             open()            ord()
+  pow()                print()
+  range()              repr()            reversed()        round()
+  set()                setattr()         slice()           sorted()
+  str()                sum()             super()
+  tuple()              type()
+  zip()
 
 Core Type methods
 -----------------
 
-str.capitalize, str.lower, str.upper, str.swapcase
-str.startswith, str.endswith
-
-str.find, str.rfind                 [find lowest index from left/right or return -1]
-str.index, str.rindex               [find lowest index from left/right or raise error]
-
-str.isalnum, str.isalpha, str.isdigit, str.islower, str.isnumeric, str.isupper
-str.join
-str.lstrip, str.rstrip, str.strip
-str.replace
-str.split, str.rsplit
-
-list.append, list.extend            [add object or list/iterable to end of list]
-list.index, tuple.index             [find item index or raise error]
-list.insert                         [before index, insert object]
-list.pop                            [remove and return item at index, default last]
-list.remove                         [remove first occurance of value]
-list.reverse
-list.sort
-
-dict.get                            [get value for key OR default value]
-dict['z']=value, dict.update        [add single k:v or dictionary]
-dict.keys, dict.values, dict.items
-dict.pop, dict.popitem              [remove element by key or remove last element(lifo)]
-
-set.add, set.update                 [add one elemnt or iterables to the set]
-set.difference (_update)            [return set of items in first set, but not input set, can update set]
-set.discard                         [remove single item from set if present (no error)]
-set.intersection (_update)          [return set of items present in both sets, can also update set]
-set.isdisjoint                      [return true if none of items are present in both sets]
-set.issubset                        [true if all items in set are present in argument set]
-set.issuperset                      [true if set contains all items in argument set]
-set.pop, set.remove                 [remove random item or specific item (with error)]
-set.symmetric_difference (_update)  [return all items, except those present in both sets, can update]
-set.union                           [union of 1 or more iterables to the set]
+  str.capitalize, str.lower, str.upper, str.swapcase
+  str.startswith, str.endswith
+  
+  str.find, str.rfind                 [find lowest index from left/right or return -1]
+  str.index, str.rindex               [find lowest index from left/right or raise error]
+  
+  str.isalnum, str.isalpha, str.isdigit, str.islower, str.isnumeric, str.isupper
+  str.join
+  str.lstrip, str.rstrip, str.strip
+  str.replace
+  str.split, str.rsplit
+  
+  list.append, list.extend            [add object or list/iterable to end of list]
+  list.index, tuple.index             [find item index or raise error]
+  list.insert                         [before index, insert object]
+  list.pop                            [remove and return item at index, default last]
+  list.remove                         [remove first occurance of value]
+  list.reverse
+  list.sort
+  
+  dict.get                            [get value for key OR default value]
+  dict['z']=value, dict.update        [add single k:v or dictionary]
+  dict.keys, dict.values, dict.items
+  dict.pop, dict.popitem              [remove element by key or remove last element(lifo)]
+  
+  set.add, set.update                 [add one elemnt or iterables to the set]
+  set.difference (_update)            [return set of items in first set, but not input set, can update set]
+  set.discard                         [remove single item from set if present (no error)]
+  set.intersection (_update)          [return set of items present in both sets, can also update set]
+  set.isdisjoint                      [return true if none of items are present in both sets]
+  set.issubset                        [true if all items in set are present in argument set]
+  set.issuperset                      [true if set contains all items in argument set]
+  set.pop, set.remove                 [remove random item or specific item (with error)]
+  set.symmetric_difference (_update)  [return all items, except those present in both sets, can update]
+  set.union                           [union of 1 or more iterables to the set]
 
 SPECIAL FUNCTIONS
 -----------------
@@ -93,16 +93,83 @@ SPECIAL FUNCTIONS
                         - 1 plus 2 is three, three plus 3 is 6, 6 plus 4 is 10
                         - produces a single result of 10
 
-   bisect_left(itr,x)   Must be imported from bisect, search from left and find index of the first
+  bisect_left(itr,x)    Must be imported from bisect, search from left and find index of the first
                         number where x is less than or equal to this number.   If x is bigger than
                         the last number, 1 ia added to the last index, ie out of bounds.   Use
                         result with .index(result, object).   iter MUST BE SORTED ASCENDING.
    
-   bisect_right(itr,x)  Must be imported from bisect, search from right and find index of the first
+  bisect_right(itr,x)   Must be imported from bisect, search from right and find index of the first
                         number where x is less than this number but greater than or equal to i-1.
                         If you want the index of the last number, subtract 1 from the result.   If
                         x is bigger than the last number, 1 is added to the last index, ie out of bounds.
                         Use result with .insert(result, object).   iter MUST BE SORTED ASCENDING.
+
+RegEx
+-----
+
+Search Functions:                                               
+  re.search()     - scans string for a regex match              
+  re.match()      - looks for regex match at beginning of string
+  re.fullmatch()  - looks for regex match on entire string
+  re.findall()    - returns a list of all regex matches on string       
+  re.finditer()   - returns iterator of regex matches on string
+
+Substitution Functions:
+  re.sub()    - looks for regex matches on string and returns replacement
+  re.subn()   - similar to sub(), but returns info on number of subs made.
+
+Utility Functions:
+  re.split()      - split string into substrings using a regex delimiter
+  re.escape()     - escapes characters in a regex
+
+Compile:
+  p = re.compile('.*'), then p.search('my input string')
+
+Metacharacters:
+
+  .               - Matches any character except newline                  
+  *               - Matches zero or more repetitions
+  ?               - Zero or one repetition, and other properties
+  ^               - Anchors match at start of string and complements a character class
+  $               - Anchors match at end of string                        
+  +               - Matches one or more repetitions                       
+  {}              - Matches an explicitely specified number of repetitions
+  []              - Character class, ie characters or numbers in a range.                    
+  ()              - Creates a group, eg (a-c,h-i)
+  <>              - Named group (not sure yet ?)                          
+  :#=!            - Specialized group (not sure yet ?)
+  \               - Escapes a metacharacter (eg \.) and has other meanings
+  |               - Designates Alternation (not sure yet ?)
+  \s              - Any whitespace character
+  \S              - Any character that is not whitespace                  
+  \w              - word character, ie [a-zA-Z0-9_]
+  \W              - Not a word character, ie [^a-zA-Z0-9_]                
+  \d              - decimal digit, ie [0-9]
+  \D              - Not a decimal digit, ie [^0-9]
+
+Examples:
+
+**************************************
+TODO - Go through these examples and the descriptions above, test them and update the descriptions!!!
+**************************************
+
+  *                           - Zero or more times.
+  +                           - One or more times.  eg [1-3]+ would capture 1 or 12 or 131 or 21 etc.
+  ?                           - Once or none.       eg [1-3]? would capture 1 or 2 or 3
+  {3}                         - Exactly 3 times.    eg [1-3]{3} would capture 111 or 112 or 123 etc
+  {3,5}                       - 3 to 5 times.
+  {3,}                        - 3 or more times.
+  []                          - One of the characters in the bracket.   eg T[ao]p would capture Tap or Top.
+  [1-5]                       - One of the numbers in the range.   eg 1[2-4]1 would capture 121 or 131 or 141
+  [a-d]                       - One of the letters in the range.   eg A[a-c]D would capture AaD or AbD or AcD etc.
+  [^1-5]                      - Any character that is NOT in the range 1 to 5.   eg 1[^1-3]1 would capture 101 or 141 or 151 etc.
+  |                           - Or, eg 22|33 captures 22 or 33.
+  ()                          - Capturing group, eg A(nt|apple) captures Ant or Apple.
+  \1                          - Contents of group 1, ie a repeat of a previous group, eg 	r(\w)g\1x would capture regex as \1 equals \w.
+  \2                          - Contents of group 2, ie a repeat of a previous group.
+  \                           - Escapes a special character, eg \* is the star, not zero or more times.
+
+  re.search('[a-e]{3}', s)    - matches exactly 3 occurances of the letters a-e in a row
 
 TYPE HINTING
 ============
