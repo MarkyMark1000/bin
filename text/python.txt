@@ -104,6 +104,102 @@ SPECIAL FUNCTIONS
                         x is bigger than the last number, 1 is added to the last index, ie out of bounds.
                         Use result with .insert(result, object).   iter MUST BE SORTED ASCENDING.
 
+SYS
+---
+
+sys contains functions and variables that are used to manipulate different parts of the
+Python runtime environment.
+
+sys.version                  - Get python version
+sys.argv                     - Get arguments passed to script (0 is current script)
+sys.exit                     - Can be used to exit the program
+sys.path                     - List of directories that the interpreter searches for modules
+sys.modules                  - List of all modules imported by current python interpreter
+sys.stdin                    - Reads lines from the standard input
+sys.stdout                   - Display output directly to the screen console
+sys.stderr                   - Can write data out to the standard error stream
+
+OS
+--
+
+os contains methods for interacting with the operating system, like creating files and directories.
+
+os.getcwd                   - Get current working directory
+os.chdir                    - Change working directory, eg chdir('../')
+os.mkdir                    - Make a directory
+os.makedirs                 - Make a directory and if any missing parent directories, make them.
+os.listdir                  - List files and directories within the input path
+os.remove                   - Remove a file name, or input path, cannot remove directories
+os.rmdir                    - Remove a directory, must be empty
+os.rename                   - Rename a file
+os.path.exists              - Check if file exists
+os.path.join                - Join a directory/file onto a path
+
+Dates and Time
+--------------
+
+There are 6 core classes used for date and time analysis:
+date, time, datetime, timedelta, tzinfo, timezone
+
+from datetime import date:
+date.today()                - Get todays date
+date(yyyy,mm,dd)            - Create a date class
+Date Properties:
+strftime                    - Format a datatime
+strptime                    - Convert string into a datetime
+weekday                     - Return day of week as integer, 0 is Monday
+year, month, day etc
+
+from datetime import time:
+datetime.now.time           - Get current clock time (no date)
+time(hh,mm,ss)              - Create a time class
+
+from datetime import datetime:
+now()                       - Get current date and time
+datetime(yyyy, mm, dd,      - Generate datetime from integers
+hh, mm, ss, ms)
+fromtimestamp(1887639468)   - Generate date from a timestamp
+timestamp()                 - Convert datetime into timestamp
+
+# Get current date and time as a utc timestamp
+dt = datetime.datetime.now(timezone.utc) 
+utc_time = dt.replace(tzinfo=timezone.utc) 
+utc_timestamp = utc_time.timestamp()
+
+Date and Time Formatting Characters:
+%a	  - Abbreviated weekday name.	Sun, Mon, ...
+%A	  - Full weekday name.	Sunday, Monday, ...
+%w	  - Weekday as a decimal number.	0, 1, ..., 6
+%d	  - Day of the month as a zero-padded decimal.	01, 02, ..., 31
+%-d	  - Day of the month as a decimal number.	1, 2, ..., 30
+%b	  - Abbreviated month name.	Jan, Feb, ..., Dec
+%B	  - Full month name.	January, February, ...
+%m	  - Month as a zero-padded decimal number.	01, 02, ..., 12
+%-m	  - Month as a decimal number.	1, 2, ..., 12
+%y	  - Year without century as a zero-padded decimal number.	00, 01, ..., 99
+%-y	  - Year without century as a decimal number.	0, 1, ..., 99
+%Y	  - Year with century as a decimal number.	2013, 2019 etc.
+%H	  - Hour (24-hour clock) as a zero-padded decimal number.	00, 01, ..., 23
+%-H	  - Hour (24-hour clock) as a decimal number.	0, 1, ..., 23
+%I	  - Hour (12-hour clock) as a zero-padded decimal number.	01, 02, ..., 12
+%-I	  - Hour (12-hour clock) as a decimal number.	1, 2, ... 12
+%p	  - Locale’s AM or PM.	AM, PM
+%M	  - Minute as a zero-padded decimal number.	00, 01, ..., 59
+%-M	  - Minute as a decimal number.	0, 1, ..., 59
+%S	  - Second as a zero-padded decimal number.	00, 01, ..., 59
+%-S	  - Second as a decimal number.	0, 1, ..., 59
+%f	  - Microsecond as a decimal number, zero-padded on the left.	000000 - 999999
+%z	  - UTC offset in the form +HHMM or -HHMM.	 
+%Z	  - Time zone name.	 
+%j	  - Day of the year as a zero-padded decimal number.	001, 002, ..., 366
+%-j	  - Day of the year as a decimal number.	1, 2, ..., 366
+%U	  - Week number of the year (Sunday as the first day of the week).
+%W	  - Week number of the year (Monday as the first day of the week).
+%c	  - Locale’s appropriate date and time representation.	Mon Sep 30 07:06:05 2013
+%x	  - Locale’s appropriate date representation.	09/30/13
+%X	  - Locale’s appropriate time representation.	07:06:05
+%%	  - A literal '%' character.	%
+
 RegEx
 -----
 
@@ -148,10 +244,6 @@ Metacharacters:
   \D              - Not a decimal digit, ie [^0-9]
 
 Examples:
-
-**************************************
-TODO - Go through these examples and the descriptions above, test them and update the descriptions!!!
-**************************************
 
   *                           - Zero or more times.
   +                           - One or more times.  eg [1-3]+ would capture 1 or 12 or 131 or 21 etc.
