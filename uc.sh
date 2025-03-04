@@ -32,6 +32,7 @@ then
   echo "  docker                - help on docker"
   echo "  factory               - help on factory boy"
   echo "  git                   - help on git"
+  echo "  jest                  - help on jest"
   echo "  jwt                   - help on jwt"
   echo "  poetry                - help on poetry"
   echo "  psql                  - help on psql, pgdump etc (postgres)"
@@ -87,6 +88,9 @@ then
 elif [ "$1" = "git" ]
 then
    cat ~/bin/text/git.txt
+elif [ "$1" = "jest" ]
+then
+   cat ~/bin/text/jest.txt
 elif [ "$1" = "jwt" ]
 then
    cat ~/bin/text/jwt.txt
