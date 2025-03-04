@@ -1,0 +1,242 @@
+TYPESCRIPT
+==========
+
+You need to setup a typescript project, generally using node and adding some aliases to
+run typescript or compile it into javascript.   Typical commands are:
+- tsc file.ts && node file.js
+- npm run compile     or      yarn compile
+
+You generally declare types using something like this:
+function concatenate(arg1: number, arg2: string, arg3: boolean): string {...}
+
+Can declare arrays or fixed length arrays:
+arg: number[]                 arg[number, number, string]
+
+Special types:
+var: any                    - variable of any type (try to avoid using it)
+: void                      - typically from a function that doesn't return a value   
+var: undefined              - variable that hasn't been initiated.  
+
+Define objects using a format similar to this:
+arg: { name: string; courses: string[] }
+
+Can be more than one type, but might need type guards in the code:
+var1: number | string       - union of different types
+
+Can define type aliases:
+type Addable = number | string
+
+You can make properties of an interface optional and/or readonly.   The '?' after a name
+makes it optional and putting 'readonly' before it makes it read only
+readonly name?: string
+
+Intersections
+-------------
+
+Can merge interface types using '&', ie intersection:
+type UserExtended = Permission & User
+
+Interfaces
+----------
+
+It is possible to define interfaces that are more flexible than normal objects and
+you can extend interfaces, eg:
+interface User {
+    name: string;
+    age: number;
+    courses: string[];
+}
+
+interface UserExtended extends User {
+    permissionLevel: string;
+}
+
+TypeGuards
+----------
+
+Use this to test for type and take appropriate action:
+typeof varName
+
+Enums
+-----
+
+It is possible to use enums within typescript, eg:
+enum PermissonLevel {
+    STUDENT,
+    INSTRUCTOR,
+    ADMIN,
+}
+
+interface UserExtended extends User {
+    permissionLevel: PermissonLevel;
+}
+
+Generic Functions
+-----------------
+
+You could have a function that takes an argument of type 'a' and returns something
+of type 'a':
+function firstElement<Type>(arr: Type[]): Type {
+    return arr[0];
+}
+
+Can also take a different input and return a different output:
+function map<Input, Output>(arr: Input[], func: (arg: Input) => Output): Output[] {
+    return arr.map(func);
+}
+
+Classes and Constructors
+------------------------
+
+You need to either initialize a variable with a default value OR create a constructor class.
+Also, if you use inheritance (extends in javascript), you need to call the super() first in
+the constructor, eg:
+```
+class Point3D extends Point2D {
+    zPos: number;
+
+    constructor(xPosInput: number, yPosInput: number, zPosInput: number) {
+        super(xPosInput, yPosInput);
+        this.zPos = zPosInput;
+    }
+}
+
+You can also use public, protected and private types, eg:
+public xPos: number
+
+Static variables are the same across all instances of the class and cannot be changed, eg:
+public static NUM_DIMENSIONS = 2
+
+If you need to override this within a sub class, you might need to use the override:
+public static override NUM_DIMENSIONS = 3
+
+Generic Classes
+---------------
+
+Its possible to create generic classes as well as generic functions, eg:
+
+interface Sized {
+    length: number;
+}
+
+class DataBox<Type extends Sized> {
+    content: Type;
+
+    constructor(input: Type) {
+        this.content = input;
+    }
+
+    print() {
+        console.log(this.content);
+    }
+}
+
+Implements (close to abstract base class)
+-------------------------------------------
+
+It is possible to define a structure that a class must implement:
+
+interface AppointmentInterface {
+    description: string;
+
+    printAppointment(): void;
+}
+
+class Appointment implements AppointmentInterface {
+    description: string;
+
+    constructor(
+        descriptionInput: string,
+    ) {
+        this.description = descriptionInput;
+    }
+
+    printAppointment() {
+        console.log(this.description);
+    }
+}
+
+Abstract Classes
+----------------
+
+It is possible to create and use abstract classes which gives you more
+flexibility with member types (protected etc etc):
+
+abstract class AppointmentABC {
+    protected description: string;
+
+    constructor(
+        descriptionInput: string,
+    ) {
+        this.description = descriptionInput;
+    }
+
+    abstract printAppointment(): void;
+}
+
+class Appointment extends AppointmentABC {
+    constructor(
+        descriptionInput: string,
+    ) {
+        super(descriptionInput);
+    }
+
+    printAppointment() {
+        console.log(this.description);
+    }
+}
+
+More on Narrowing
+-----------------
+
+Using typeof doesn't work very well when you get to using classes, so you can
+use instanceof or test if an input argument has a particular property using
+the 'in' operator, eg:
+
+function printInfo(arg: User | Admin) {
+    if ('id' in arg) {...}
+}
+
+function printInfo2(arg: User | Admin) {
+    if (arg instanceof User) {...}
+}
+
+keyof
+-----
+
+If you want an argument to be say a key of an input object, you can use keyof:
+
+function logUserProperty(user: User, key: keyof User) {
+    console.log(user[key]);
+}
+
+rest parameters ...
+-------------------
+
+If you want to define a function that can accept an unlimited number of input parameters:
+
+function argumentSum(...numbers: number[]) {...}
+
+utility types
+-------------
+
+If you have an interface, it is possible to use utility types to create another
+inteface that does things like make all members optional:
+
+interface User {
+    name: string;
+    email?: string;
+    id?: number;
+}
+
+// Make all members optional
+type UserOptional = Partial<User>;
+
+// Make all members non optional, ie required
+type UserRequired = Required<User>;
+
+// Pick specific members from the base interface
+type UserBaseInfo = Pick<User, 'email' | 'name'>;
+
+// Exclude specific members from base interface
+type UserInfo = Omit<User, 'name' | 'id'>;
