@@ -264,26 +264,65 @@ Examples:
   re.search('[a-e]{3}', s)    - matches exactly 3 occurances of the letters a-e in a row
 
 TYPE HINTING
-============
+------------
 
-Examples:
+Basically, you define the type of variables and return types of functions using a format
+similar to the following:
+def myfunc(input: str) -> str:
+  myvar: str = 'blah'
 
-   from typing import List, Set, Tuple, Dict, Union, Optional
+You can use standard iterators with typing, eg list, tuple, dict, but it is also possible to import these
+from typing and specify what is contained, eg:
 
-   def get_full_name(first_name: str, last_name: str) -> str:
-      ....
+- names: list = ['mark','william']            - from typing import List
+                                              - names: List[str] = ['mark','william']
 
-   def process_items(items_t: Tuple[int, int, str], items_s: Set[bytes]) -> int:
-      ....
+You can use type aliases, eg:
+Card = Tuple[str,str]
+def deal_hands(deck: Card) -> Tuple[Card,Card,Card]:
 
-   def process_items(prices: Dict[str, float]):
-      ....
+You can inspect a function for it's annotations, eg:
+print(somefunction.__annotations__)
 
-   def process_items(item: Union[int, str]):        # multiple types
-      ....
+reveal_type(some_input)       - reveal type of an input, could be useful for adding typing.
+reveal_local()                - displays local variables
 
-   def process_items(name: Optional[str] = None):
-      ....
+Imports from typing:
+Any                         - represent any type
+Optional                    - an optional type, can also use |
+Protocol                    - can define a protocol class, then use it as a type hint, eg:
+                              class Adder(Protocol):
+                                def add(self, x, y): ...
+                              ... and then ...
+                              def add(adder: Adder) -> None:
+                                ...
+Sequence                    - represent a sequence (no __len__, eg reverse)
+TypeVar                     - eg:
+                              Choosable = TypeVar("Choosable")
+                              def choose(items: Sequence[Choosable]) -> Choosable:
+                            - Can contstrain the TypeVar to specific types, eg:
+                              Choosable = TypeVar("Choosable", str, float)
+                            - Can bind to a type, useful for self or cls:
+                              TAnimal = TypeVar("TAnimal", bound="Animal")
+                            - Can also bind to an abcto allow any subclass, eg:
+                              U = TypeVar("U", bound=BaseAuthenticatedUser)
+
+from collections.abc import Callable, Awaitable
+Callable                    - eg Callable[[str, int], str], a function with str and int as
+                              arguments and returns a str.
+Awaitable                   - awaitable function, eg asyncio.
+iterable                    - eg list, tuple (__len__), is also a sequence
+
+mypy:
+  - might need to setup configuration file such as pyproject.toml file.
+  - might need to install stub files that contain type hints for libraries or create your own stub file
+  for a package without typehints
+  - to run:
+    mypy .
+  - can be slow, so run mypy daemon, should speed up after subsequent runs:
+    dmypy run -- .
+    dmypy stop
+  - # type: ignore
 
 DATACLASSES
 ===========
