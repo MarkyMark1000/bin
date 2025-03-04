@@ -1,0 +1,172 @@
+JAVASCRIPT
+==========
+
+Overview
+--------
+
+datatypes are:   number, string, object, boolean, array, undefined, null
+
+declare variables with:   const, let or var
+
+...someName         - rest paramter, lets you take a variable number of arguments
+[...a,...b]         - spread operator, lets you spread array/object into arrays/objects
+
+== compares values
+=== compares values and type
+
+parsing:
+
+    Number(), parseFloat(), parseInt(), String(), toString()
+
+    let text = `Welcome ${firstName} ${lastName}`;
+
+<script src="filename.js"></script>
+<script type="text/javascript">...</script>
+
+Loops
+-----
+
+for (i in arr)              - loops over keys in object/array
+for (i of arr)              - loops over values in object/array
+
+arr.forEach(  (value) => console.log(value)  );
+
+Object.keys(object1)        - get keys of object
+Object.values(object1)      - get values of object
+Object.entries(object1)     - get keys and values of object
+
+Global Functions
+----------------
+
+eval();                     - executes a string as if it was script code
+String(23);                 - return string from number
+(23).toString();            - return string from number
+Number("23");               - return number from string
+decodeURI(enc);             - decode URI. Result: "my page.asp"
+encodeURI(uri);             - encode URI. Result: "my%page.asp"
+decodeURIComponent(enc);    - decode a URI component
+encodeURIComponent(uri);    - encode a URI component
+isFinite();                 - is variable a finite, legal number
+isNaN();                    - is variable an illegal number
+parseFloat();               - returns floating point number of string
+parseInt();                 - parses a string and returns an integer
+
+Strings
+-------
+
+var len = abc.length;           - string length
+abc.indexOf("lmno");            - find substring, -1 if doesn't contain 
+abc.lastIndexOf("lmno");        - last occurance
+abc.slice(3, 6);                - cuts out "def", negative values count from behind
+abc.replace("abc","123");       - find and replace, takes regular expressions
+abc.toUpperCase();              - convert to upper case
+abc.toLowerCase();              - convert to lower case
+abc.concat(" ", str2);          - abc + " " + str2
+abc.charAt(2);                  - character at index: "c"
+abc[2];                         - unsafe, abc[2] = "C" doesn't work
+abc.charCodeAt(2);              - character code at index: "c" -> 99
+abc.split(",");                 - splitting a string on commas gives an array
+128.toString(16);               - number to hex(16), octal (8) or binary (2)
+
+Arrays
+------
+
+dogs.join(" * ");                       - join: "Bulldog * Beagle * Labrador"
+dogs.pop();                             - remove last element
+dogs.push("Chihuahua");                 - add new element to the end
+dogs[dogs.length] = "Chihuahua";        - the same as push
+dogs.shift();                           - remove first element
+dogs.unshift("Chihuahua");              - add new element to the beginning
+delete dogs[0];                         - change element to undefined (not recommended)
+dogs.splice(2, 0, "Pug", "Boxer");      - add elements (where, how many to remove, element list)
+var animals = dogs.concat(cats,birds);  - join two arrays (dogs followed by cats and birds)
+dogs.slice(1,4);                        - elements from [1] to [4-1]
+dogs.sort();                            - sort string alphabetically
+dogs.reverse();                         - sort string in descending order
+x.sort(function(a, b){return a - b});   - numeric sort
+x.sort(function(a, b){return b - a});   - numeric descending sort
+x.indexOf(3)
+x.lastIndexOf(7)
+x.includes(3)                           - test if 3 is in array
+x.some(v => v ===3)                     - test if some elements match
+x.all(v => v===3)                       - test if all elements match
+x.map(x => x.toUpperCase())             - create new array from old array applying function
+x.filter(x => x==3)                     - create new array of select eleements
+
+Math
+----
+
+var pi = Math.PI;       - 3.141592653589793
+Math.round(4.5);        - = 5
+Math.pow(2,8);          - = 256 - 2 to the power of 8
+Math.sqrt(49);          - = 7 - square root 
+Math.abs(-3.14);        - = 3.14 - absolute, positive value
+Math.ceil(3.14);        - = 4 - rounded up
+Math.floor(3.99);       - = 3 - rounded down
+
+Other math functions:
+Math.sin, Math.cos, Math.min, Math.max, Math.log, Math.exp, Math.random
+
+Dates and Time
+--------------
+
+var d = new Date();
+
+Number(d)                           - 1741108078967 miliseconds passed since 1970
+Date("2017-06-23");                 - date declaration
+Date("2017");                       - is set to Jan 01
+Date("2017-06-23T12:00:00-09:45");  - date - time YYYY-MM-DDTHH:MM:SSZ
+Date("June 23 2017");               - long date format
+
+getDate();                          - day as a number (1-31)
+getDay();                           - weekday as a number (0-6)
+getFullYear();                      - four digit year (yyyy)
+getHours();                         - hour (0-23)
+getMilliseconds();                  - milliseconds (0-999)
+getMinutes();                       - minutes (0-59)
+getMonth();                         - month (0-11)
+getSeconds();                       - seconds (0-59)
+getTime();                          - milliseconds since 1970
+
+setDate();                          - day as a number (1-31)
+setFullYear();                      - year (optionally month and day)
+setHours();                         - hour (0-23)
+setMilliseconds();                  - milliseconds (0-999)
+setMinutes();                       - minutes (0-59)
+setMonth();                         - month (0-11)
+setSeconds();                       - seconds (0-59)
+setTime();                          - milliseconds since 1970)
+
+Json
+----
+
+var obj = JSON.parse(string);
+var my_json = JSON.stringify(obj);
+
+User Interaction
+----------------
+
+console.log(a);             document.write(a);          alert(a);
+confirm("Really?");         prompt("Your age?","0");
+
+Timeout
+-------
+setTimeout(function () {
+
+}, 1000);
+
+Using DOM
+---------
+document.getElementById("elementID").innerHTML = "Hello World!";
+
+Object Destructuring
+--------------------
+
+const classDetails = {
+    strength: 78,
+    benches: 39,
+    blackBoard:1
+}
+
+// populate the variables classStrength, classBenches and classBlackBoard from the object
+const {strength:classStrength, benches:classBenches,blackBoard:classBlackBoard} = classDetails;

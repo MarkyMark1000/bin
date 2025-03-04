@@ -11,6 +11,7 @@ then
   echo "  cq                    - python code quality"
   echo "  strat                 - strategies, code review etc"
   echo "  python                - python notes"
+  echo "  javascript            - javascript notes"
   echo "  typescript            - typescript notes"
   echo "  commands              - common commands"
   echo "  image                 - image editing"
@@ -50,6 +51,9 @@ then
 elif [ "$1" = "python" ]
 then
    cat ~/bin/text/python.txt
+elif [ "$1" = "javascript" ]
+then
+   cat ~/bin/text/javascript.txt
 elif [ "$1" = "typescript" ]
 then
    cat ~/bin/text/typescript.txt
