@@ -172,6 +172,171 @@ If you need to update the snapshots, run:
 
     jest --updateSnapshot
 
+REACT - Testing Apps
+--------------------
+
+This should be present, but if not, install this:
+
+REACT TESTING LIBRARY - Tool for simulating/rendering our react app components.
+
+Example (app.test.js):
+
+import { render, screen } from '@testing-library/react';
+import App from './App';
+
+test('renders learn react link', () => {
+  render(<App />);
+  const linkElement = screen.getByText(/learn react/i);   // i means case insensitive
+  expect(linkElement).toBeInTheDocument();
+});
+
+
+Use the Describe function to group unit tests together:
+
+import { render, screen } from '@testing-library/react';
+import Greeting from './Greeting';
+
+describe('Greeting component', () => {
+  test('renders Hello World as a text', () => {
+    // Arrange
+    render(<Greeting />);
+
+    // Act
+    // ... nothing
+
+    // Assert
+    const helloWorldElement = screen.getByText('Hello World!');
+    expect(helloWorldElement).toBeInTheDocument();
+  });
+});
+
+REACT - Testing User Interaction and state
+------------------------------------------
+
+Example with clicking buttons:
+
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import Greeting from './Greeting';
+
+describe('Greeting component', () => {
+  ...
+
+  test('renders "Changed!" if the button was clicked', () => {
+    // Arrange
+    render(<Greeting />);
+
+    // Act - click the button
+    const buttonElement = screen.getByRole('button');
+    userEvent.click(buttonElement)
+
+    // Assert
+    const outputElement = screen.getByText('Changed!');
+    expect(outputElement).toBeInTheDocument();
+  });
+
+  test('does not render "good to see you" if the button was clicked', () => {
+     // Arrange
+     render(<Greeting />);
+
+     // Act
+     const buttonElement = screen.getByRole('button');
+     userEvent.click(buttonElement)
+ 
+     // Assert - getByText raises an error if not found, so need to
+     // use queryByText
+     const outputElement = screen.queryByText('good to see you', { exact: false });
+     expect(outputElement).toBeNull();
+  });
+});
+
+REACT - Testing Asyn Code
+-------------------------
+
+We use the 'find' functions (ie findAllByRole) which return a promise and wait
+for the desired result.   It waits up to 1 second unless you override the timeout.
+You also use the async and await keywords:
+
+import { render, screen } from '@testing-library/react';
+import Async from './Async';
+
+describe('Async component', () => {
+  test('renders posts if request succeeds', async () => {
+    render(<Async />)
+
+    const listItemElements = await screen.findAllByRole('listitem');
+    expect(listItemElements).not.toHaveLength(0);
+  });
+});
+
+REACT - Working with mocks
+--------------------------
+
+This example shows you how to mock the fetch function so that you
+don't actually send a request to the http server:
+
+import { render, screen } from '@testing-library/react';
+import Async from './Async';
+
+describe('Async component', () => {
+  test('renders posts if request succeeds', async () => {
+    window.fetch = jest.fn();
+    window.fetch.mockResolvedValueOnce({
+      json: async () => [{ id: 'p1', title: 'First post' }],
+    });
+    render(<Async />);
+
+    const listItemElements = await screen.findAllByRole('listitem');
+    expect(listItemElements).not.toHaveLength(0);
+  });
+});
+
+REACT NATIVE - REACT NATIVE TESTING LIBRARY
+-------------------------------------------
+
+Basic example:
+
+import { render, screen, userEvent } from '@testing-library/react-native';
+import { QuestionsBoard } from '../QuestionsBoard';
+
+test('form submits two answers', async () => {
+  const questions = ['q1', 'q2'];
+  const onSubmit = jest.fn();
+
+  const user = userEvent.setup();
+  render(<QuestionsBoard questions={questions} onSubmit={onSubmit} />);
+
+  const answerInputs = screen.getAllByLabelText('answer input');
+  await user.type(answerInputs[0], 'a1');
+  await user.type(answerInputs[1], 'a2');
+  await user.press(screen.getByRole('button', { name: 'Submit' }));
+
+  expect(onSubmit).toHaveBeenCalledWith({
+    1: { q: 'q1', a: 'a1' },
+    2: { q: 'q2', a: 'a2' },
+  });
+});
+
+Basics:
+
+render - key function for rendering a component.
+screen - key object that gets populated after a component has been rendered.   There are a set
+         of queries associated to this that include:
+         - getBy*, getAllBy*, queryBy*, queryAllBy*, findBy*, findAllBy*
+         - the find functions tend to be for async results, ie fetch.
+
+Matchers:
+
+These typically take a format such as expect(element).toBeOnTheScreen()
+
+toBeOnTheScreen()           toHaveTextContent()               toContainElement()
+toBeEmptyElement()          toHaveDisplayValue()              toHaveAccessibilityValue()
+toBeEnabled()               toBeDisabled()                    toBeSelected()
+toBeChecked()               toBePartiallyChecked()            toBeExpanded()
+toBeCollapsed()             toBeBusy()                        toBeVisible()
+toHaveStyle()               toHaveAccessibleName()            toHaveProp()
+
+
 Vue - Testing Components
 ------------------------
 
