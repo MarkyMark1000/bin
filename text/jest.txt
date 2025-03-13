@@ -291,8 +291,21 @@ describe('Async component', () => {
   });
 });
 
-REACT NATIVE - REACT NATIVE TESTING LIBRARY
--------------------------------------------
+REACT NATIVE
+------------
+
+Snapshots and the renderer object:
+
+import renderer from 'react-test-renderer';
+...
+it(`renders correctly`, () => {
+  const tree = renderer.create(<ThemedText>Snapshot test!</ThemedText>).toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
+REACT NATIVE TESTING LIBRARY
+----------------------------
 
 Basic example:
 

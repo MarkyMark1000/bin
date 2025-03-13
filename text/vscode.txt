@@ -14,6 +14,8 @@ LIST OF USEFUL EXTENSIONS
   - Volar (Vue Language features)
   - YAML
   - Format in Context Menus (format multiple files in one go)
+  - JEST
+  - vitest
 
 COMPARE TWO FILES
 =================
@@ -52,3 +54,30 @@ ANALYSING GIT HISTORY
     - Hovering over class
     - Gitlens Icon in top right, 'File Annotations'.   Hit 'Toggle File Blame'.   It lists commits
       against lines of code that they impacted.   Hit 'File Annotations' againt to get rid of it.
+
+DEBUGGING
+=========
+
+  JAVASCRIPT/TYPESCRIPT
+  ---------------------
+
+    There are multiple methods for this:
+    - Add a breakpoint within VSCode, then open a 'javascript' terminal, rathern than bash/zsh etc.
+      If you then run the tests as normal, eg 'yarn test', it should stop on the breakpoint.
+    - Install the 'JEST' extension.   This should add debugging arrows to each test that you can either
+      run or right click and debug.
+    - Install the VITEST extension, which similarly adds features for debugging unit tests written in
+      vitest.
+  
+  PYTHON
+
+    - Works for default unit test framework and pytest.
+    - You need to select the appropriate virtual environment.   Run 'Python: Select Interpreter' within
+      the command pallet and select the appropriate virtual environment.
+    - It can be useful to have the Python extension installed.
+    - Open a python file and you should be able to see a 'testing' icon on the left (looks like a
+      chemistry flask).
+    - Hit the 'configure tests' button, which can be used to select the test folder.   You may need a
+      glob pattern for finding tests.
+    - It should automatically find the tests, but Run 'Test: Refresh Tests' within the command pallet
+      if it doesn't find them.
