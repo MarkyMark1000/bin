@@ -1,22 +1,28 @@
-JEST
-======
+JEST / VITEST
+=============
 
 Testing framework for javascript.
 
-Examples
---------
+NOTE: in a tutorial that I did, it mentioned that 99% of jest commands are similar
+      to vitest commands.
 
-Timer Mocks:
-https://jestjs.io/docs/timer-mocks
+There is also a website called 'testing library' that has testing libraries for
+many frameworks including 'react', 'native', 'vue' etc.   Look on here for help
+with a specific framework:
 
-Async Mocks
-https://jestjs.io/docs/tutorial-async
+https://testing-library.com/
 
 Structure
 ---------
 
     Most tests are structured around a group of tests (describe) which can contain
-    initialization functions and sub tests.   It then checks for the expeected result:
+    initialization functions and sub tests.   It then checks for the expeected result.
+    Depending upon the project, you may not need to import describe, expect etc.
+    Also, please note the following:
+      - it is common practice to use it instead of test.
+      - you can also nest describe blocks of tests within each other
+
+    Example:
 
     import {describe, expect, test} from '@jest/globals';
 
@@ -26,23 +32,32 @@ Structure
     });
     });
 
-    YOU CAN NEST describe BLOCKS WITHIN EACH OTHER!!!
+Debugging
+---------
 
-Useful for Debugging
---------------------
-
-    // pretty print difference between two objects:
-    const {diff} = require('jest-diff');
-    const result = diff(a, b);
-    console.log(result);
-
-    // useful for getting the type of a variable
-    const {getType} = require('jest-get-type');
-    console.log(getType(array));
-
-    // output object in pretty format
-    const {format: prettyFormat} = require('pretty-format');
-    console.log(prettyFormat(val));
+  - You can add breakpoints within VSCode and then run the tests using something like 'yarn test'
+    within a 'javascript' version of the termnal (not bash, zsh etc).   The test should then stop
+    on the breakpoint.
+  - You can install the 'JEST' extension which will add arrows/markers to each describe and test
+    block.   You can run tests or right click and debug them.
+  - This code may be useful for printing thins like the difference between two objects, type etc:
+    - // pretty print difference between two objects:
+      const {diff} = require('jest-diff');
+      const result = diff(a, b);
+      console.log(result);
+    - // useful for getting the type of a variable
+      const {getType} = require('jest-get-type');
+      console.log(getType(array));
+    - // output object in pretty format
+      const {format: prettyFormat} = require('pretty-format');
+      console.log(prettyFormat(val));
+  - REACT:
+    - react tends to use a render(), screen combination when running unit tests.   To help with
+      debugging add screen.debug().
+  - VUE:
+    - the debugger; doesn't work automatically, try adding this, although it should be noted
+      that this was for vitest, but may work for jest:
+        - debugger; // eslint-disable-line
 
 Matchers
 --------
@@ -94,32 +109,28 @@ Testing Async code
 Repeating Setup
 ---------------
 
-    Can setup or teardown characteristics before/after each test, works well when
-    enclosed in describe:
+    You can setup and teardown characteristics before/after each test.   These
+    functions can be added into describe blocks as well as on a module level.
 
-    beforeEach(() => {
-    initializeCityDatabase();
-    });
+    This is particularly useful for making sure mocks are cleared before and after
+    each test.   Example:
 
-    afterEach(() => {
-    clearCityDatabase();
-    });
+    import { cleanup } from "@testing-library/react";
+    afterEach(()=> {
+        cleanup();
+        jest.clearAllMocks();
+    })
 
-    You can also do one time setups:
-
-    beforeAll(() => {
-    return initializeCityDatabase();
-    });
-
-    afterAll(() => {
-    return clearCityDatabase();
-    });
+    Other functions include:
+      - beforeEach          // before each unit test
+      - afterEach           // after each unit test
+      - beforeAll           // run once before tests
+      - afterAll            // run once after tests
 
 Mocking
 -------
 
 Mocking is quite big and i'm only going to briefly outline it:
-https://jestjs.io/docs/mock-functions
 
 - Can define a mock function, then test the number of calls, result value etc:
 
@@ -147,30 +158,60 @@ https://jestjs.io/docs/mock-functions
     // or you could use the following depending on your use case:
     // axios.get.mockImplementation(() => Promise.resolve(resp))
 
-    return Users.all().then(data => expect(data).toEqual(users));
-    })
+    // return Users.all().then(data => expect(data).toEqual(users));
 
 Snapshot Testing
 ----------------
 
-A typical snapshot test case renders a UI component, takes a snapshot, then compares it to a
-reference snapshot file stored alongside the test. The test will fail if the two snapshots do not match,
-either the change is unexpected, or the reference snapshot needs to be updated to the new
-version of the UI component.
+A snapshot of a particular component is saved in __snapshots__ directory.   The test compares
+the lookf of an actual component to the snapshot.   Should you update the structure of the
+component, you will need to update the snapshots with this:
+
+    jest --updateSnapshot           (eg yarn snapshot)
+
+A typical example:
 
     import renderer from 'react-test-renderer';
-    import Link from '../Link';
-
-    it('renders correctly', () => {
+    ...
     const tree = renderer
         .create(<Link page="http://www.facebook.com">Facebook</Link>)
         .toJSON();
     expect(tree).toMatchSnapshot();
-    });
 
-If you need to update the snapshots, run:
+REACT and REACT NATIVE
+======================
 
-    jest --updateSnapshot
+Use the react or native testing library from 'testing library':
+https://testing-library.com/
+
+In general you will import some specific functions for rendering components,
+they populate a screen object that you analyse and test.
+
+Example:
+
+  import { render, screen } from "@testing-library/react";    // OR
+  import { render, screen } from "@testing-library/react-native";
+
+  render(<MyComponent />);
+  let obj = screen.queryByTestId("myTestID");
+  expect(obj).toBeOnTheScreen();
+
+IMPORTANT:   Good practice is to populate your code with test id's and then
+             getByTestId, queryByTestId etc in your code.   The test id's
+             are typically declared using this format:
+
+             <SomeComponent testID="MyUniqueID" />
+             <SomeComponent data-testid=“MyUniqueID” />
+
+             You would then try to validate data using something like this:
+
+             expect(screen.getByTestId("MyUniqueID")).toBeInTheDocument()
+             expect(screen.getByTestId(“MyUniqueID”)).toHaveTextContent(“SomeText”)
+
+*****************************************************************
+I AM UP TO HERE !!!
+*****************************************************************
+
 
 REACT - Testing Apps
 --------------------
@@ -455,3 +496,13 @@ describe('App', () => {
 
   })
 })
+
+
+Examples
+--------
+
+Timer Mocks:
+https://jestjs.io/docs/timer-mocks
+
+Async Mocks
+https://jestjs.io/docs/tutorial-async
