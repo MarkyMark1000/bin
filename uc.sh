@@ -37,6 +37,7 @@ then
   echo "  poetry                - help on poetry"
   echo "  psql                  - help on psql, pgdump etc (postgres)"
   echo "  pytest                - help on pytest"
+  echo "  react_native          - help on react_native"
   echo "  swagger               - help on swagger"
   echo "  sqlalchemy            - help on sqlalchemy"
   echo "  marshmallow           - help on marshmallow"
@@ -103,6 +104,9 @@ then
 elif [ "$1" = "pytest" ]
 then
    cat ~/bin/text/pytest.txt
+elif [ "$1" = "react_native" ]
+then
+   cat ~/bin/text/react_native.txt
 elif [ "$1" = "swagger" ]
 then
    cat ~/bin/text/swagger.txt

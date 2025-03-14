@@ -1,0 +1,33 @@
+REACT NATIVE
+============
+
+Common Components
+-----------------
+
+IMPORTANT:
+
+    import { } from "react-native-safe-area-context";
+
+    SafeAreaProvider - used in _layout and is a context provider.
+    SafeAreaView - regular view component, but with the safe area as padding.
+
+MORE COMMON:
+
+    import { } from "react-native";
+
+    ActivityIndicator - display circular loading indicator
+    Button - ie a button
+    FlatList - basic list of items, consider SectionList also if need titles/sections
+    Image
+    ImageBackground
+    KeyboardAvoidingView
+    Modal - provide content above a view
+    Pressable - wrapper to detect various stages of a press
+    RefreshControl - used in FlatList and SectionList for refreshing
+    ScrollView - multiple items in bound are, all items rendered at once, not lazy like FlatList
+    SectionList - similar to FlatList, but can have titles
+    StatusBar - bit typically at top/bottom that contains time, battery status etc.
+    Switch - boolean input
+    Text - display text
+    TextInput - for entering text via keyboard
+    View - very common, similar to css flexbox
