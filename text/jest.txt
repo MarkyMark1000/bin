@@ -208,188 +208,292 @@ IMPORTANT:   Good practice is to populate your code with test id's and then
              expect(screen.getByTestId("MyUniqueID")).toBeInTheDocument()
              expect(screen.getByTestId(“MyUniqueID”)).toHaveTextContent(“SomeText”)
 
-*****************************************************************
-I AM UP TO HERE !!!
-*****************************************************************
+REACT - Components That Render Multiple Rows
+--------------------------------------------
 
+Example:
 
-REACT - Testing Apps
---------------------
+render(<Pagination total={50} limit={10} currentPage={1} />)
+const pageContainers = screen.getAllByTestId(‘page-container’)
+expect(pageContainers).toHaveLength(5)
+expect(pageContainers[0]).toHaveTextContent(“1”)
 
-This should be present, but if not, install this:
+REACT - Mock vs spyOn
+---------------------
 
-REACT TESTING LIBRARY - Tool for simulating/rendering our react app components.
+  Mocks:
+    - Used to isolate code from dependencies
+    - Can test if the function was called.
 
-Example (app.test.js):
+  Spies:
+    - Used to test real objects in isolation and allow us to verify their behavior.
+    - You want to add your own implementation just for a specific scenario and then
+      reset it again via mockRestore()
+    - Want to see if the function was called.
 
-import { render, screen } from '@testing-library/react';
-import App from './App';
+  I found a useful article which suggested adding these settings to the jest config:
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);   // i means case insensitive
-  expect(linkElement).toBeInTheDocument();
-});
+    clearMocks - useful after each test case if getting call counts that are wrong
+    resetMocks - useful before each test if returning mocked results from prev tests
+    restoreMocks - only for spyOn and useful after each test, or spyOn remains.
 
+REACT Mock
+----------
 
-Use the Describe function to group unit tests together:
+Lets say you have a module called utils with a function called range, but you don't
+want to actually call that function.   You can mock it by adding this to the top of
+the test.   IMPORTANT - All Mocks might be moved to the top of the test !!!!!
 
-import { render, screen } from '@testing-library/react';
-import Greeting from './Greeting';
+Example:
 
-describe('Greeting component', () => {
-  test('renders Hello World as a text', () => {
-    // Arrange
-    render(<Greeting />);
+  vi.mock(“../utils”, () => {
+    return {
+        range: () => [1,2,3,4,5]      // range returns and array from 1 to 5
+  }
+  })
 
-    // Act
-    // ... nothing
+REACT spyOn
+-----------
 
-    // Assert
-    const helloWorldElement = screen.getByText('Hello World!');
-    expect(helloWorldElement).toBeInTheDocument();
+You can spy on external functions and potentially replace their implemenation.   You
+need to import the library being spied on:
+
+IMPORTANT: call jest.restoreAllMocks after each test in an afterEach block!!!
+
+Example:
+
+  import * as utils from ‘../utils’
+  vi.spyOn(utils, “range”)
+  render(….)
+  expect(utils.range).toHaveBeenCalledWith(1,5)
+
+Example 2:
+
+  const mockResponse = {
+    data: [{ id: "1", name: "bar" }],
+  };
+  vi.spyOn(axios, "get").mockResolvedValue(mockResponse);
+
+If you have say a class/function containing a function you can specify if it is
+'get', 'set' etc:
+
+  const spy = jest.spyOn(video, 'play', 'get');
+
+REACT - Test State, function calls, and user Input
+--------------------------------------------------
+
+  - try to write a test similar to how the user would use the page
+  - You need to use async and await
+  - example:
+
+    // setup system for handling usr input and a mock function for handleClick
+    const user = userEvent.setup()
+    const handleClick = vi.fn()
+    // render page
+    render(<Pagination total={50} limit={10} currentPage={1} selectPage={handleClick} />)
+    const pageContainers = screen.getAllByTestId(‘page-container’)
+    // simulate a click
+    await user.click(pageContainers[0])
+    // check mock function is called
+    expect(handleClick).toHaveBeenCalledOnce()
+    expect(handleClick).toHaveBeenCalledWith(‘1’)
+    // add data to an input box and check the value
+    const usernameInput = screen.getByTestId("usernameInput");
+    await user.type(usernameInput, "foo");
+    expect(screen.getByTestId("username")).toHaveTextContent("foo");
+  
+REACT - Test useEffect
+----------------------
+
+There are libraries that you can install such as msw that let you mock calls to external api's.
+
+As an alternative you can spy on api calls (eg axios) using spyOn.   DONT FORGET TO CLEAR THE
+SPYON WITH restoreAllMocks.
+
+describe("Tags", () => {
+  it("renders tags", async () => {
+    // define data returned by api endpoint
+    const mockResponse = {
+      data: [{ id: "1", name: "bar" }],
+    };
+    // spy on axios and mock the response
+    vi.spyOn(axios, "get").mockResolvedValue(mockResponse);
+    render(<Tags />);
+    // use find as works with async well
+    const tags = await screen.findAllByTestId("tag");
+    expect(tags).toHaveLength(1);
+    expect(tags[0]).toHaveTextContent("bar");
   });
 });
 
-REACT - Testing User Interaction and state
-------------------------------------------
-
-Example with clicking buttons:
-
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import Greeting from './Greeting';
-
-describe('Greeting component', () => {
-  ...
-
-  test('renders "Changed!" if the button was clicked', () => {
-    // Arrange
-    render(<Greeting />);
-
-    // Act - click the button
-    const buttonElement = screen.getByRole('button');
-    userEvent.click(buttonElement)
-
-    // Assert
-    const outputElement = screen.getByText('Changed!');
-    expect(outputElement).toBeInTheDocument();
-  });
-
-  test('does not render "good to see you" if the button was clicked', () => {
-     // Arrange
-     render(<Greeting />);
-
-     // Act
-     const buttonElement = screen.getByRole('button');
-     userEvent.click(buttonElement)
- 
-     // Assert - getByText raises an error if not found, so need to
-     // use queryByText
-     const outputElement = screen.queryByText('good to see you', { exact: false });
-     expect(outputElement).toBeNull();
-  });
-});
-
-REACT - Testing Asyn Code
+REACT - Test custom Hooks
 -------------------------
 
-We use the 'find' functions (ie findAllByRole) which return a promise and wait
-for the desired result.   It waits up to 1 second unless you override the timeout.
-You also use the async and await keywords:
+renderHook and act method is used largely with custom hooks.   Lets say you create
+a custom hook that has some state to record a count, but also has a function called
+increment that increases the state.   It returns {count, increment}
 
-import { render, screen } from '@testing-library/react';
-import Async from './Async';
+Example:
 
-describe('Async component', () => {
-  test('renders posts if request succeeds', async () => {
-    render(<Async />)
-
-    const listItemElements = await screen.findAllByRole('listitem');
-    expect(listItemElements).not.toHaveLength(0);
+  import useCounter from "./useCounter";
+  ...
+  // make sure the custom hook has an initial value of 0
+  it("should render initial count", () => {
+    // call the hook using renderHook
+    const { result } = renderHook(() => useCounter());
+    // access count via result.current
+    expect(result.current.count).toEqual(0);
   });
-});
-
-REACT - Working with mocks
---------------------------
-
-This example shows you how to mock the fetch function so that you
-don't actually send a request to the http server:
-
-import { render, screen } from '@testing-library/react';
-import Async from './Async';
-
-describe('Async component', () => {
-  test('renders posts if request succeeds', async () => {
-    window.fetch = jest.fn();
-    window.fetch.mockResolvedValueOnce({
-      json: async () => [{ id: 'p1', title: 'First post' }],
+  // default prop of 10 works and sets count to 10
+  it("should render initial count", () => {
+    // call the hook using renderHook
+    const { result } = renderHook(() => useCounter(10));
+    // access count via result.current
+    expect(result.current.count).toEqual(10);
+  });
+  // test the increment function
+  it("should increment the count", () => {
+    // render the hook with no default, so count is zero
+    const { result } = renderHook(() => useCounter());
+    // need to use the act function when running routines within a custom hook:
+    act(() => {
+      result.current.increment();
     });
-    render(<Async />);
-
-    const listItemElements = await screen.findAllByRole('listitem');
-    expect(listItemElements).not.toHaveLength(0);
+    // check the count has changed to 1
+    expect(result.current.count).toEqual(1);
   });
-});
 
-REACT NATIVE
-------------
+REACT - Custom Renders (Video 21)
+----------------------
 
-Snapshots and the renderer object:
+When writing unit tests it can be a bit laborious writing long render statements that contain context’s,
+so you can write custom render functions at the top of the test, eg:
 
-import renderer from 'react-test-renderer';
-...
-it(`renders correctly`, () => {
-  const tree = renderer.create(<ThemedText>Snapshot test!</ThemedText>).toJSON();
+export const customRender = (ui, providerProps) => {
+   return render(
+	<TodosContext.Provider value={providerProps}>{ui}</TodosContext.Provider>
+   )
+}
 
-  expect(tree).toMatchSnapshot();
-});
+REACT - Shallow Rendering
+-------------------------
 
-REACT NATIVE TESTING LIBRARY
-----------------------------
+When writing a unit test for a component that contains other components, you want to test the other
+component individually, but you don’t necessarily want to render that sub component because large
+projects can have components within components etc.   The old unit testing framework had shallow
+rendering, but this isn’t available in this, so instead, what he does
+is mock the component that is being rendered and returns a div with some data in it:
 
-Basic example:
-
-import { render, screen, userEvent } from '@testing-library/react-native';
-import { QuestionsBoard } from '../QuestionsBoard';
-
-test('form submits two answers', async () => {
-  const questions = ['q1', 'q2'];
-  const onSubmit = jest.fn();
-
-  const user = userEvent.setup();
-  render(<QuestionsBoard questions={questions} onSubmit={onSubmit} />);
-
-  const answerInputs = screen.getAllByLabelText('answer input');
-  await user.type(answerInputs[0], 'a1');
-  await user.type(answerInputs[1], 'a2');
-  await user.press(screen.getByRole('button', { name: 'Submit' }));
-
-  expect(onSubmit).toHaveBeenCalledWith({
-    1: { q: 'q1', a: 'a1' },
-    2: { q: 'q2', a: 'a2' },
+  vi.mock("./Todo", () => {
+    return {
+      default: (props) => {
+        return <div>todo</div>;
+      },
+    };
   });
-});
 
-Basics:
+You might want to test what props the mock component was called with, so you can do something like this:
 
-render - key function for rendering a component.
-screen - key object that gets populated after a component has been rendered.   There are a set
-         of queries associated to this that include:
-         - getBy*, getAllBy*, queryBy*, queryAllBy*, findBy*, findAllBy*
-         - the find functions tend to be for async results, ie fetch.
+  const mockTodo = vi.fn();
+  vi.mock("./Todo", () => {
+    return {
+      default: (props) => {
+        mockTodo(props);
+        return <div>todo</div>;
+      },
+    };
+  });
+
+Within your unit tests, you can then do things like:
+
+  expect(mockTodo).toHaveBeenCalledTimes(2);
+  expect(mockTodo).toHaveBeenNthCalledWith(…..);
+
+REACT - setTimeout
+------------------
+
+This is a bit tricky if you have a timer that waits 2 seconds before an update is made.
+The typical async await won’t work and if you get your test to wait 2 seconds then it
+can really slow the tests down.   We use in built functionality to basically replace
+the timer with a fake timer.   This must be set before the test and turned off afterwards.
+Also we need to move the timer forward by 2 seconds.   Example code:
+
+Example:
+
+  beforeEach(() => {
+    // turn on fake timer before each test
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+  });
+
+  afterEach(() => {
+    // turn off fake timer after each test
+    vi.useRealTimers();
+  });
+
+  it("renders corrent result", async () => {
+    render(<Waiter />);
+    // advance the time of the timer by 2 seconds
+    act(() => {
+      vi.advanceTimersByTime(2000);
+    });
+    // then perform usual tests checks:
+    const waiter = await screen.findByTestId("waiter");
+    expect(waiter).toHaveTextContent("passed");
+  });
+
+
+REACT - Extra Notes
+-------------------
+
+Testing can be complex, read notes and watch videos if you get stuck.   Can also look
+in github such as the Expo code base.
+
+Testing things like context and redux can be complicated, watch video's for examples.
+
+Can get text using case insensitive search:
+const linkElement = screen.getByText(/learn react/i);   // i means case insensitive
+
+We use the 'find' functions (ie findAllByRole) which return a promise and wait
+for the desired result.
+
+  Example:
+
+    test('renders posts if request succeeds', async () => {
+      render(<Async />)
+      const listItemElements = await screen.findAllByRole('listitem');
+      expect(listItemElements).not.toHaveLength(0);
+    });
+
+Another way to mock fetch calls:
+
+  Example:
+
+    test('renders posts if request succeeds', async () => {
+      // mock fetch in the window object
+      window.fetch = jest.fn();
+      window.fetch.mockResolvedValueOnce({
+        json: async () => [{ id: 'p1', title: 'First post' }],
+      });
+      // render the componennt
+      render(<Async />);
+      // wait for the result and check it isn't 0
+      const listItemElements = await screen.findAllByRole('listitem');
+      expect(listItemElements).not.toHaveLength(0);
+    });
 
 Matchers:
 
-These typically take a format such as expect(element).toBeOnTheScreen()
+  These typically take a format such as expect(element).toBeOnTheScreen()
 
-toBeOnTheScreen()           toHaveTextContent()               toContainElement()
-toBeEmptyElement()          toHaveDisplayValue()              toHaveAccessibilityValue()
-toBeEnabled()               toBeDisabled()                    toBeSelected()
-toBeChecked()               toBePartiallyChecked()            toBeExpanded()
-toBeCollapsed()             toBeBusy()                        toBeVisible()
-toHaveStyle()               toHaveAccessibleName()            toHaveProp()
+  toBeOnTheScreen()           toHaveTextContent()               toContainElement()
+  toBeEmptyElement()          toHaveDisplayValue()              toHaveAccessibilityValue()
+  toBeEnabled()               toBeDisabled()                    toBeSelected()
+  toBeChecked()               toBePartiallyChecked()            toBeExpanded()
+  toBeCollapsed()             toBeBusy()                        toBeVisible()
+  toHaveStyle()               toHaveAccessibleName()            toHaveProp()
 
+VUE
+===
 
 Vue - Testing Components
 ------------------------
