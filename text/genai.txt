@@ -1,0 +1,77 @@
+GenAI
+=====
+
+Both CoPilot and Cursor revolve around 3 pieces of functionality:
+
+    - Chat/Ask, ie ask questions and get answers
+    - Edit, ie ask it to make changes to code
+    - Agent, ask it to create code and solve problems within your repo
+
+Adding context is important, ie which file/files/directory etc you
+are interested in.
+
+Also, because the code is trained on the internet, it somethimes uses
+out of date commands.   It is possible to override these with instructions:
+
+CoPilot
+--------
+
+- create a .github directory
+- within that directory, add a copilot-instructions.md file
+
+Cursor
+------
+
+- based around a .cursor/rules directory.
+- can add/edit rules in settings.
+- can add file and project specific settings
+
+CHAT/ASK
+========
+
+This was actually much better than I thought it was going to be.
+
+These are some good questions when analysing a code base:
+
+Questions that I think are important when analysing code:
+
+	- General Questions as a good start:
+
+		- Describe what you are trying to do and then ask about engineering patterns.
+
+		- Analyse the code within the ‘context’ and explain what it is doing.   You might
+                need to drag folders into the context.
+
+	- This is going to be a list of questions that I am going to use to sculpt the code that I am
+	developing.   The idea is to start with the key things that are important to me (code quality
+	and simplicity) and then end with these questions to ensure they key principles are prioritised:
+
+		- Rank the code in terms of code quality.
+		- Rank the code with respect to the KISS principle..
+
+                - Is the code over or under engineered.
+		- Rank the code with respect to the SOLID principle.
+
+		- Please add type hinting.
+		- Please add a doctoring to each public function.
+                - Review the code with respect to encapsulation (and improve)
+
+		- Rank the code with respect to the DRY principle.
+		- Analyse the code for any breaches of the YAGNI principle.
+                - Rank the code with respect to Cohesion and Coupling.
+		- Review the code with respect to seperation of concerns.
+                - Are there any situations where it would be better to use composition over inheritance.
+
+		- Highlight any tables that do not meet the 3rd Normal form.
+
+		- Rank the code with respect to the SOLID principle.
+                - Is the code over or under engineered.
+
+		- Rank the code with respect to KISS (again)
+		- Rank the code in terms of code quality.
+
+	Remember, programming is about choices, you quite often can’t achieve everything and need to
+	choose what is important.   When making changes, it might be a good idea to make the
+        easiest changes first.
+
+At the moment I tend to use Claude Sonnet 4

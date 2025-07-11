@@ -16,6 +16,7 @@ then
   echo "  commands              - common commands"
   echo "  image                 - image editing"
   echo "  vscode                - notes on vscode"
+  echo "  genai                 - notes on genai"
   echo "  kbs                   - keyboard shortcuts"
   echo "  uml                   - notes on uml diagrams"
   echo ""
@@ -68,6 +69,9 @@ then
 elif [ "$1" = "vscode" ]
 then
    cat ~/bin/text/vscode.txt
+elif [ "$1" = "genai" ]
+then
+   cat ~/bin/text/genai.txt
 elif [ "$1" = "kbs" ]
 then
    cat ~/bin/text/kbs.txt
