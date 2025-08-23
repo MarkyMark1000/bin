@@ -37,14 +37,16 @@ Questions that I think are important when analysing code:
 
 	- General Questions as a good start:
 
-		- Describe what you are trying to do and then ask about engineering patterns.
+		- Describe what you are trying to do and then ask about engineering
+		patterns.
 
-		- Analyse the code within the ‘context’ and explain what it is doing.   You might
-                need to drag folders into the context.
+		- Analyse the code within the ‘context’ and explain what it is doing.
+		You might need to drag folders into the context.
 
-	- This is going to be a list of questions that I am going to use to sculpt the code that I am
-	developing.   The idea is to start with the key things that are important to me (code quality
-	and simplicity) and then end with these questions to ensure they key principles are prioritised:
+	- This is going to be a list of questions that I am going to use to sculpt the
+	code that I am developing.   The idea is to start with the key things that are
+	important to me (code quality and simplicity) and then end with these questions
+	to ensure they key principles are prioritised:
 
 		- Rank the code in terms of code quality.
 		- Rank the code with respect to the KISS principle..
@@ -75,3 +77,100 @@ Questions that I think are important when analysing code:
         easiest changes first.
 
 At the moment I tend to use Claude Sonnet 4
+
+VIBE CODING
+===========
+
+These notes were taken from a courses on vibe coding:
+
+	Structure Vibe Coding to Save Build Time
+
+Use 3 core documents and create the output as md files:
+
+	Specification	(what are we building)
+	Blueprint		(how are you going to build it)
+	Roadmap			(ToDo’s)
+
+Specification
+-------------
+
+Use o4-mini-high, 3.7 Sonnet (thinking), Gemini 2.5 Pro:
+
+Enter this:
+
+Ask me one question at a time, so we can develop a thorough step-by-step idea for a
+spec.   Each question should build upon my previous answers, and our end goal is to
+have a detailed specification I can hand off to a developer.   Let’s do this
+iteratively so that I can dig into every relevant detail.
+
+Remember, only one question at a time.
+
+Here is the idea:
+
+<IDEA>
+
+
+Once the AI has finished, or we are bored with the questions, we then prompt the AI
+to build a spec with this:
+
+Now that we’ve wrapped up the brainstorming process, can you compile our findings
+into a comprehensive developer-ready specification?   Include all relevant
+requirements, architecture choices, data handing details, error handling
+strategies and a testing plan so a developer can immediately begin implementation.
+
+It can produce a detailed specification.   You may not need to build all of it,
+eg CICD pipelines, but that is up to you.
+
+Blueprint
+---------
+
+Use O3, Gemini 2.5 Pro, Grok 3, 3.7 Sonnet (claude):
+
+Enter this:
+
+Draft a detailed, step-by-step blueprint for building this project.   Then, once
+you have a solid plan, break it down into small iterative chunks that build on
+each other.   Review the results and make sure the steps are small enough to be
+implemented safely with strong testing, but big enough to move the project forward.
+Iterate until you feel the steps are right sized for this project.
+
+From here you should have the foundation to provide a series of prompts for a
+code-generation LLM that will implement each step in a test-driven manner.
+Prioritize best practices, incremental progress and early testing, ensuring no big
+jumps in complexity at any stage.   Make sure that each prompt builds on the
+previous prompts and ends with wiring things together.   There should be no hanging
+or orphaned code that isn’t integrated into a previous step.
+
+Make sure to separate each prompt section and use prompting best-practices.
+Use markdown.   Each prompt should be tagged as text using code tags.
+The goal is to output prompts, but context is important as well.
+
+Make sure to write out all the prompts, shorten them if needed to ensure we have
+every prompt needed to build this entire project.   Each prompt should stand alone
+and not reference other prompts.
+
+<SPEC>
+
+Roadmap
+-------
+
+Use same model as the Blueprint:
+
+Research: use ChatGPT, perplexity, Grok, Claude to research things like api’s that
+could be used by the app, current libraries since model has been trained, 
+
+Once the blueprint has been generated, you need to add this prompt into the chat
+that is being used to generate the blueprint:
+
+Can you make a `todo.md` that I can use as a checklist?   Be thorough.
+
+Tips for Vibe Coding Journey
+----------------------------
+
+Models:
+
+	To Plan:   3.7 Sonnet (thinking), , Gemini 2.5 Pro, o3
+	To Code:   GPT 4.1, 3.5 Sonnet, 3.7 Sonnet
+
+Use @ prompts for a specific website page or a particular document (in the codebase ?)
+to put the relevant documents into the AI’s context.
