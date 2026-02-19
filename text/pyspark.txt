@@ -1,0 +1,120 @@
+pyspark
+====
+
+import pyspark
+pyspark.__version__
+
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.getOrCreate()
+spark
+
+df = spark.read.parquet('/content/drive/MyDrive/pyspark_training/yellow_tripdata_2025-01.parquet')
+
+# show top 5 rows
+df.show(5)
+
+# number of rows
+df.count()
+
+# column names of df
+df.schema.names
+
+# prints schema, ie column names and type
+df.printSchema()
+
+# get statistics on numerical columns(count,mean,std,min,max)
+df.describe(['passenger_count','total_amount']).show()
+
+# select one or more columns (as dataframe) and then show the column
+df.select('passenger_count', 'total_amount').show()
+# please note that the following format returns a column, not a dataframe
+df['passenger_count']
+
+# sort the dataframe
+df.sort('total_amount', ascending=False).show()
+df.sort(['passenger_count', 'total_amount'], ascending=[False,False])
+
+# can filter (similar to select)
+df.filter('Airport_fee>0').show()
+df.filter('Airport_fee>0 and passenger_count>2').show()
+
+# handling missing data
+from pyspark.sql.functions import col, isnull
+df.filter(isnull(col('passenger_count'))).count()
+df.fillna({'passenger_count': 1})
+
+# adds a new column with a calculation
+from pyspark.sql.functions import unix_timestamp, round
+df1 = df.withColumn('trip_duration_minutes',
+                    round(
+                        (unix_timestamp('tpep_dropoff_datetime')-
+                        unix_timestamp('tpep_pickup_datetime')
+                        )/60,1)
+                    )
+
+# can rename columns when selecting them:
+df2 = df1.select('tpep_pickup_datetime').withColumnsRenamed(
+    {'tpep_pickup_datetime':'pu_datetime'})
+
+# can return a dateframe with certain columns removed:
+dNew = df1.drop('VendorID', 'RatecodeID')       dNew.show()
+
+# UNION:   Can append / union one dataframe onto another one, but must
+# have same column names and data types
+df_2025 = df.union(df_feb)
+
+# JOIN:   Can do things like joins and behaves similar to sql (left join)
+df_joined = df_2025.join(
+    taxi_zone_lookup,
+    df_2025.PULocationID==taxi_zone_lookup.LocationID,
+    'left')
+
+# Group By:   Can do aggregate functions
+df.groupBy('payment_type').count().sort('payment_type').show()
+df.groupBy('payment_type').avg('total_amount').show()
+
+# Can import functions and get more control over aggregate col names
+from pyspark.sql.functions import avg
+df.groupBy('payment_type').agg(avg('total_amount').alias('avg_amount')).show()
+
+# Can write dataframe to a file, however this creates a directory and puts the
+# csv file within it.   PySpark always assumes data is distributed and she
+# recommends reading the docs for how to write to a db or wharehouse etc.
+avg_fare = df.groupBy('payment_type').agg(avg('total_amount')).sort('payment_type')
+avg_fare.write.csv('/content/drive/MyDrive/pyspark_training/avg_fare', header=True, mode='overwrite')
+
+# you can register a dataframe as a temporary view and then run
+# spark sql against the temporary view:
+my_dataframe.createOrReplaceTempView('taxi')
+spark.sql('select * from taxi where total_amount > 50').show()
+
+# you can also chain statements to limit data returned.   It is also
+# possible to generate sql statements within python using the triple
+# quote syntax and feed it into the query:
+spark.sql('select * from taxi where total_amount > 50')
+    .filter('passenger_count > 2')
+    .select('payment_type', 'passenger_count', 'total_amount')
+    .show()
+spark.sql(inputSql).show()
+
+# PRODUCTION SPARK/DATA ENGINEER ENVIRONMENTS
+Datasources, Data Extraction tools (Fivetran, Airbyte, Kafka, Kinesis),
+Distributed Storage (HDFS, AWS S3, Google Cloud Storage), 
+Cluster Management (Kubernetes, YARN),
+Job Scheduling (Apache Airflow, Amazon Managed Workflows for AA),
+Consistent Environments (Docker),
+Monitoring and Logging (Spark Web UI, Grafana Dashboards, AWS Cloudwatch),
+Security and Access Control (IAM, Network Protection, Encryption, Disaster Rec),
+
+# IF YOU DON'T WANT TO SETUP AND CREATE THE INFRASTRUCTURE YOURSELF THERE
+# ARE A NUMBER OF CLOUD SERVICES
+Databricks - popular, created by developers of Apache Spark,
+   works on Azure, AWS, Google
+Amazon Elastic Map Reduce - managed big data service for spark, hadoop, hive etc
+   more flexible than databricks, but more configuration.
+AWS Glue - runs pyspark under hood, no management of infrastructure, good for
+   simple to moderately complex jobs and works well with S3, Redshift
+Dataproc - google clouds managed spark, hadoop etc service
+Azure Synapse - microsofts data platform, integrates with Azure Datalake,
+   SQL Data warehouse, Power BI
+
