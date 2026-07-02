@@ -43,6 +43,7 @@ then
   echo "  swagger               - help on swagger"
   echo "  sqlalchemy            - help on sqlalchemy"
   echo "  marshmallow           - help on marshmallow"
+  echo "  uv                    - help on uv"
   echo "  virtualenv            - help on virtualenv"
   echo "  zsh                   - help on zsh"
 
@@ -124,6 +125,9 @@ then
 elif [ "$1" = "marshmallow" ]
 then
    cat ~/bin/text/marshmallow.txt
+elif [ "$1" = "uv" ]
+then
+   cat ~/bin/text/uv.txt
 elif [ "$1" = "zsh" ]
 then
    cat ~/bin/text/zsh.txt
