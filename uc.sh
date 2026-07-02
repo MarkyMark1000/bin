@@ -40,7 +40,9 @@ then
   echo "  pytest                - help on pytest"
   echo "  pyspark               - help on pyspark"
   echo "  react_native          - help on react_native"
+  echo "  snowflake             - help on snowflake"
   echo "  swagger               - help on swagger"
+  echo "  sql                   - help on sql"
   echo "  sqlalchemy            - help on sqlalchemy"
   echo "  marshmallow           - help on marshmallow"
   echo "  uv                    - help on uv"
@@ -119,9 +121,15 @@ then
 elif [ "$1" = "swagger" ]
 then
    cat ~/bin/text/swagger.txt
+elif [ "$1" = "sql" ]
+then
+   cat ~/bin/text/sql.txt
 elif [ "$1" = "sqlalchemy" ]
 then
    cat ~/bin/text/sqlalchemy.txt
+elif [ "$1" = "snowflake" ]
+then
+   cat ~/bin/text/snowflake.txt
 elif [ "$1" = "marshmallow" ]
 then
    cat ~/bin/text/marshmallow.txt

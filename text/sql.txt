@@ -1,0 +1,31 @@
+# SQL
+=====
+
+The object of these notes is to cover advanced sql topics, not basics
+such as insert, delete, update etc.
+
+## Window Functions
+-------------------
+
+Window functions are one of the most radical, fundamental enhancements to modern SQL.
+They allow access to neighboring rows without using subqueries.
+
+Can only be used in SELECT statement and ORDER BY that follows.
+
+General format of a window function:
+
+Function (Expressions)
+FILTER (WHERE predicates)
+OVER (
+    [PARTITION BY Expressions]
+    [ORDER BY Expressions [NULLS FIRST|LAST]]
+    [Frame type BETWEEN Frame start AND Frame end]
+    [EXCLUDE Frame exclusion]
+)
+
+OVER: Defines the window over the dataaset, OVER() would be all data
+
+PARTITION BY:   This partitions data into groups, eg MAX(Name) OVER (PARTITION BY species) would
+    go through each row and return the Max name for cats, max name for dogs etc.
+ORDER BY:   Confusing as doesn't work like other ORDER BY term in sql.   
+

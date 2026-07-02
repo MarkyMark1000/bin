@@ -1,0 +1,56 @@
+# Snowflake
+==========
+
+On the left hand side the core areas were:
+
+Catalog -> Database Explorer
+
+Projects -> Workspaces (create sql, python etc sheets)
+         -> Notebooks (set of commands (sql) to run in order)
+         -> Streamlit (create forms for entering data)
+
+Compute -> Warehouses (compute resourses for executing queries etc)
+
+Workspace SQL Examples
+----------------------
+
+show schemas in account;
+
+create database library_card_catalog comment = 'DWW Lesson 10 ';
+
+use database UTIL_DB;
+use schema PUBLIC;
+use role ACCOUNTADMIN;
+
+create or replace table garden_plants.veggies.vegetable_details
+(
+   plant_name varchar(25),
+   root_depth_code varchar(1)    
+);
+
+create file format garden_plants.veggies.PIPECOLSEP_ONEHEADROW 
+    type = 'CSV'
+    field_delimiter = '|'
+    skip_header = 1
+    ;
+
+select $1, $2, $3
+from @util_db.public.my_internal_stage/LU_SOIL_TYPE.tsv
+(file_format => garden_plants.veggies.COMMASEP_DBLQUOT_ONEHEADROW);
+
+COPY INTO LU_SOIL_TYPE (SOIL_TYPE_ID, SOIL_TYPE, SOIL_DESCRIPTION)
+FROM (
+  SELECT
+    $1,
+    $2,
+    $3
+  FROM @util_db.public.my_internal_stage/LU_SOIL_TYPE.tsv
+  (FILE_FORMAT => 'garden_plants.veggies.TABSEP_DBLQUOT_ONEHEADROW')
+);
+
+select raw_status:user:name::text as user_name
+,raw_status:id as tweet_id
+,value:text::varchar as hashtag_used
+from tweet_ingest
+,lateral flatten
+(input => raw_status:entities:hashtags);
