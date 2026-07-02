@@ -1,0 +1,22 @@
+UV Package Manager for Python
+=============================
+
+uv --help OR uv help
+
+uv python install           # Install Python versions.
+uv python list              # View available Python versions.
+uv python pin               # Pin the current project to use a specific Python version.
+uv python uninstall         # Uninstall a Python version.
+
+uv init                     # Create a new Python project.
+uv add                      # Add a dependency to the project.
+uv remove                   # Remove a dependency from the project.
+uv sync                     # Sync the project's dependencies with the environment.
+uv sync --no-dev            # Sync only live dependencies.
+uv lock                     # Create a lockfile for the project's dependencies.
+uv run                      # Run a command in the project environment.
+uv tree                     # View the dependency tree for the project.
+
+uv cache clean              # Remove cache entries.
+uv cache prune              # Remove outdated cache entries.
+uv self update              # Update uv to the latest version.
